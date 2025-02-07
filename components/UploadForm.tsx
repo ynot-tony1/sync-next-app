@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 
 import { useState } from "react";
 
@@ -9,7 +9,7 @@ export default function UploadForm() {
   const [downloadUrl, setDownloadUrl] = useState<string>("");
   const [downloadFilename, setDownloadFilename] = useState<string>("");
 
-  // handling file input changes
+  // handle file input changes
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // retrieves the first file form the input box from the browser or null is one isnt selected
     const selectedFile = event.target.files?.[0] || null;
@@ -20,21 +20,23 @@ export default function UploadForm() {
     setDownloadFilename("");
   };
 
-   // defines an asynchronous function to handle the form submission
+  // defines an asynchronous function to handle the form submission
   const handleSubmit = async (event: React.FormEvent) => {
-   // to prevent the default form behavour which is to refresh the page on submission
+    // to prevent the default form behavour which is to refresh the page on submission
     event.preventDefault();
     // checks if no file has been selected and updates the status state variable with the status of file selection for the user
     if (!file) {
       setStatus("Please select a file.");
       return;
     }
+
     try {
       setStatus("Uploading...");
-    // creates a new form data object to prepare the file for upload
+      // creates a new form data object to prepare the file for upload
       const formData = new FormData();
-    // appends the selected file to the form data object with the key 'file'
+      // appends the selected file to the form data object with the key 'file'
       formData.append("file", file);
+
       // sends a post request to the backend api endpoint with the form data attached to the body
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/process`,
@@ -43,26 +45,42 @@ export default function UploadForm() {
           body: formData,
         }
       );
-      // checks if the response status is not in the range 200-299 ie ok
       if (!response.ok) {
         throw new Error("Failed to upload file.");
       }
 
       const data = await response.json();
-      setDownloadUrl(`${process.env.NEXT_PUBLIC_BACKEND_URL}${data.url}`);
-       // sets the download filename using the filename returned from the api
-      setDownloadFilename(data.filename);
-      setStatus("Upload successful!");
+
+      // if no_audio is within the json response, set its message in the status state variable
+      if (data.no_audio) {
+        // display the "no audio" message
+        setStatus(data.message || "Video has no audio");
+        setDownloadUrl("");
+        setDownloadFilename("");
+      }
+      // if already_in_sync is within the json response, display that message
+      else if (data.already_in_sync) {
+        setStatus(data.message || "Your file was already in sync!");
+        setDownloadUrl("");
+        setDownloadFilename("");
+      }
+      else {
+        // set the download link and success status
+        setDownloadUrl(`${process.env.NEXT_PUBLIC_BACKEND_URL}${data.url}`);
+        setDownloadFilename(data.filename);
+        setStatus("Upload successful!");
+      }
     } catch (error) {
       console.error("Upload error:", error);
       setStatus("An error occurred during upload.");
     }
   };
-    // renders the jsx upload form ui
+
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="file-input">Choose file</label>
       <input
+        id="file-input"
         type="file"
         accept=".avi"
         onChange={handleFileChange}
@@ -82,3 +100,4 @@ export default function UploadForm() {
     </form>
   );
 }
+
