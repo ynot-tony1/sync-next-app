@@ -4,7 +4,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -13,7 +13,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "types": ["jest", "node"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
@@ -23,7 +22,8 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "types": ["jest", "node"]
   },
   "include": [
     "**/*.ts",
@@ -31,7 +31,8 @@
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "jest.config.js",
-    "jest.setup.js"
+    "jest.setup.js",
+    "types/**/*.d.ts"  
   ],
   "exclude": ["node_modules"]
 }
