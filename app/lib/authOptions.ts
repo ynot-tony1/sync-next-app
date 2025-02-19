@@ -7,8 +7,8 @@ import type { JWT } from "next-auth/jwt";
  * Retrieves the NextAuth secret from environment variables.
  *
  * @remarks
- * The non-null assertion (`!`) is used here to ensure that `NEXTAUTH_SECRET` is defined.
- * If the secret's missing, a runtime error will be thrown.
+ * The non-null assertion (`!`) is here ot make sure that `NEXTAUTH_SECRET` is defined.
+ * If the secret's missing, itl throw a run time error.
  */
 const secret = process.env.NEXTAUTH_SECRET!;
 
@@ -39,16 +39,16 @@ export const authOptions: AuthOptions = {
        * Authenticates a user by verifying their credentials from the external auth service.
        *
        * @param credentials - The user's credentials, email and password.
-       * @param _req - The incoming request object. It's not actually used in this function 
-       * but it is required to be there by NextAuth's 'authorize' implementation. 
+       * @param _req - The incoming request object. 
+       * It's not actually used in this function but it is required to be there by NextAuth's implementation. 
        * 
        * @returns An object containing the user's id and email if it is sucessful, otherwise it returns null.
        *
        * @remarks
        * Function first validates that both email and password are provided.
        * Then sends a POST request to the external auth endpoint '/login'.
-       * If the response is successful and contains an access_token, the token is checked using the secret.
-       * After being verified successfully, a user object is returned. Otherwise, `null` is returned.
+       * If the response is successful and has an access_token in it, the token is checked using the secret.
+       * After being verified successfully, a user object comes back. Otherwise, `null` is returned.
        */
       async authorize(credentials, _req) {
         if (!credentials?.email || !credentials?.password) {

@@ -7,11 +7,11 @@
  *
  * In registration mode, when the form is submitted:
  * - It sends a POST request to the Auth Service's /register endpoint with the email and password.
- * - If registration is successful, it retrieves an access token from the response.
+ * - If registration is successful, it gets an access token from the response.
  * - Using this token, it makes another POST request to the App Service's /user endpoint to create a user record.
  * - Finally, it uses NextAuth's `signIn` function to log the user in.
  *
- * In login mode, submitting the form directly calls NextAuth's `signIn` function with the userEmail and userPassword that the user has submitted.
+ * In login mode, submitting the form directly calls NextAuth's `signIn` function with the userEmail and userPassword.
  *
  * Rendered on the client side, hence 'use client'.
  * Returns a JSX element.

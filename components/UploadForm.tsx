@@ -45,7 +45,7 @@ export default function UploadForm() {
   /**
    * Handles form submission for file upload.
    *
-   * Prevents the default form behavior, validates that a file has been selected and 
+   * Prevents the default form behavior, validates that a file has been selected and if so,
    * sends a POST request with the file to the backend API.
    * Based on the data from the response, it updates the status message and if successful, sets the download URL and filename.
    *

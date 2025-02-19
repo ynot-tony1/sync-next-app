@@ -4,11 +4,11 @@
  * Main landing page for logged-in users. 
  * 
  * Uses NextAuth's `useSession` hook to grab the current session data. 
- * If there's no active session like if the user isn't logged in, 
- * it lets the user know and provides a link to the login page.
- * When a session is detected, it displays a friendly welcome message with the
- * user's email, a link to the upload page and a logout button. The logout button
- * uses NextAuth's `signOut` method, which sends the user back to the login page.
+ * If there's no active session, like if the user isn't logged in, 
+ * it lets the user know and gives a link to the login page.
+ * When a session is found, it shows a welcome message with the
+ * user's email, a link to the upload page and a logout button. 
+ * The logout button uses NextAuth's `signOut` method, which sends the user back to the login page.
  * 
  * Rendered on the client side, hence 'use client'.
  * Returns a JSX element.
