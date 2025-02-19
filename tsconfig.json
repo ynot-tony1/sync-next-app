@@ -24,7 +24,6 @@
       }
     ],
     "types": ["jest", "node"]
-    // Note: Do not include "next-auth" here.
   },
   "include": [
     "**/*.ts",
