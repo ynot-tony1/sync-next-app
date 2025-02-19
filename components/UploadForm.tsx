@@ -1,30 +1,58 @@
+/**
+ * UploadForm Component
+ *
+ * This component renders a form for uploading a file. When a user chooses a file for upload
+ * and submits the form, the file is sent to the backend API endpoint for processing.
+ *
+ * It uses state variables to manage:
+ * - The selected file.
+ * - Status messages that tell the user about the upload process.
+ * - The download URL and filename for the processed file.
+ *
+ * handleFileChange retrieves the file from the browser and resets any previous status or download information.
+ * handleSubmit prevents the default form behavior, validates the file selection, and then uploads the file.
+ * Based on the APIs response, it either displays an error message or sets the download link for the user.
+ *
+ * Rendered on the client side, hence 'use client'.
+ * Returns a JSX element.
+ */
 "use client";
 
 import { useState } from "react";
 
 export default function UploadForm() {
-  // declaring and initialising state variables for file, status, download url and the download file name
   const [file, setFile] = useState<File | null>(null);
   const [status, setStatus] = useState<string>("");
   const [downloadUrl, setDownloadUrl] = useState<string>("");
   const [downloadFilename, setDownloadFilename] = useState<string>("");
 
-  // handle file input changes
+  /**
+   * Handles changes to the file input.
+   *
+   * Retrieves the file from the input, and updates the state. 
+   * If no file is selected it returns null and resets the state variables.
+   *
+   * @param event - The change event from the file input.
+   */
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // retrieves the first file form the input box from the browser or null is one isnt selected
     const selectedFile = event.target.files?.[0] || null;
     setFile(selectedFile);
-    // reseting other state variables
     setStatus("");
     setDownloadUrl("");
     setDownloadFilename("");
   };
 
-  // defines an asynchronous function to handle the form submission
+  /**
+   * Handles form submission for file upload.
+   *
+   * Prevents the default form behavior, validates that a file has been selected and 
+   * sends a POST request with the file to the backend API.
+   * Based on the data from the response, it updates the status message and if successful, sets the download URL and filename.
+   *
+   * @param event - The form submission event.
+   */
   const handleSubmit = async (event: React.FormEvent) => {
-    // to prevent the default form behavour which is to refresh the page on submission
     event.preventDefault();
-    // checks if no file has been selected and updates the status state variable with the status of file selection for the user
     if (!file) {
       setStatus("Please select a file.");
       return;
@@ -32,40 +60,36 @@ export default function UploadForm() {
 
     try {
       setStatus("Uploading...");
-      // creates a new form data object to prepare the file for upload
       const formData = new FormData();
-      // appends the selected file to the form data object with the key 'file'
       formData.append("file", file);
 
-      // sends a post request to the backend api endpoint with the form data attached to the body
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/process`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/process`, {
+        method: "POST",
+        body: formData,
+      });
+
       if (!response.ok) {
         throw new Error("Failed to upload file.");
       }
-
       const data = await response.json();
 
-      // if no_audio is within the json response, set its message in the status state variable
       if (data.no_audio) {
-        // display the "no audio" message
         setStatus(data.message || "Video has no audio");
         setDownloadUrl("");
         setDownloadFilename("");
-      }
-      // if already_in_sync is within the json response, display that message
-      else if (data.already_in_sync) {
+      } else if (data.no_video) {
+        setStatus(data.message || "Video has no video stream");
+        setDownloadUrl("");
+        setDownloadFilename("");
+      } else if (data.no_fps) {
+        setStatus(data.message || "Video has no fps");
+        setDownloadUrl("");
+        setDownloadFilename("");
+      } else if (data.already_in_sync) {
         setStatus(data.message || "Your file was already in sync!");
         setDownloadUrl("");
         setDownloadFilename("");
-      }
-      else {
-        // set the download link and success status
+      } else {
         setDownloadUrl(`${process.env.NEXT_PUBLIC_BACKEND_URL}${data.url}`);
         setDownloadFilename(data.filename);
         setStatus("Upload successful!");
@@ -84,14 +108,12 @@ export default function UploadForm() {
         type="file"
         accept=".avi"
         onChange={handleFileChange}
-        style={{ marginLeft: "10px" }}
+        style={{ marginLeft: 10 }}
       />
-      <button type="submit" disabled={!file} style={{ marginLeft: "10px" }}>
+      <button type="submit" disabled={!file} style={{ marginLeft: 10 }}>
         Upload
       </button>
-
       {status && <p>{status}</p>}
-
       {downloadUrl && (
         <a href={downloadUrl} download={downloadFilename}>
           Download {downloadFilename}
@@ -100,4 +122,3 @@ export default function UploadForm() {
     </form>
   );
 }
-
