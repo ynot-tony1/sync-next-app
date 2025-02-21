@@ -22,7 +22,6 @@ import { useState } from "react";
 
 export default function UploadForm() {
   const [file, setFile] = useState<File | null>(null);
-  const [status, setStatus] = useState<string>("");
   const [downloadUrl, setDownloadUrl] = useState<string>("");
   const [downloadFilename, setDownloadFilename] = useState<string>("");
 
@@ -37,7 +36,6 @@ export default function UploadForm() {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0] || null;
     setFile(selectedFile);
-    setStatus("");
     setDownloadUrl("");
     setDownloadFilename("");
   };
@@ -54,12 +52,10 @@ export default function UploadForm() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!file) {
-      setStatus("Please select a file.");
       return;
     }
 
     try {
-      setStatus("Uploading...");
       const formData = new FormData();
       formData.append("file", file);
 
@@ -74,29 +70,23 @@ export default function UploadForm() {
       const data = await response.json();
 
       if (data.no_audio) {
-        setStatus(data.message || "Video has no audio");
         setDownloadUrl("");
         setDownloadFilename("");
       } else if (data.no_video) {
-        setStatus(data.message || "Video has no video stream");
         setDownloadUrl("");
         setDownloadFilename("");
       } else if (data.no_fps) {
-        setStatus(data.message || "Video has no fps");
         setDownloadUrl("");
         setDownloadFilename("");
       } else if (data.already_in_sync) {
-        setStatus(data.message || "Your file was already in sync!");
         setDownloadUrl("");
         setDownloadFilename("");
       } else {
         setDownloadUrl(`${process.env.NEXT_PUBLIC_BACKEND_URL}${data.url}`);
         setDownloadFilename(data.filename);
-        setStatus("Upload successful!");
       }
     } catch (error) {
       console.error("Upload error:", error);
-      setStatus("An error occurred during upload.");
     }
   };
 
@@ -113,7 +103,6 @@ export default function UploadForm() {
       <button type="submit" disabled={!file} style={{ marginLeft: 10 }}>
         Upload
       </button>
-      {status && <p>{status}</p>}
       {downloadUrl && (
         <a href={downloadUrl} download={downloadFilename}>
           Download {downloadFilename}
