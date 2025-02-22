@@ -1,7 +1,10 @@
-// jest.config.js
+const nextJest = require('next/jest');
 
-const config = {
-  preset: 'ts-jest',
+const createJestConfig = nextJest({
+  dir: './',
+});
+
+const customJestConfig = {
   testEnvironment: 'jsdom',
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1'
@@ -19,4 +22,4 @@ const config = {
   testPathIgnorePatterns: ['/node_modules/', '/.next/']
 };
 
-module.exports = config;
+module.exports = createJestConfig(customJestConfig);
