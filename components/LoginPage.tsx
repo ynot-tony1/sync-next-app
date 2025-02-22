@@ -1,31 +1,36 @@
-/**
- * LoginPage Component
- *
- * This component provides a form for authentication. 
- * It supports both login and registration modes, starting in login mode by default. 
- * Users can toggle between the two modes.
- *
- * In registration mode, when the form is submitted:
- * - It sends a POST request to the Auth Service's /register endpoint with the email and password.
- * - If registration is successful, it gets an access token from the response.
- * - Using this token, it makes another POST request to the App Service's /user endpoint to create a user record.
- * - Finally, it uses NextAuth's `signIn` function to log the user in.
- *
- * In login mode, submitting the form directly calls NextAuth's `signIn` function with the userEmail and userPassword.
- *
- * Rendered on the client side, hence 'use client'.
- * Returns a JSX element.
- */
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 
-export default function LoginPage() {
+/**
+ * A React functional component that provides a form for user authentication,
+ * supporting both login and registration modes.
+ *
+ * @remarks
+ * The component initially renders in login mode, but allows users to toggle to registration mode.
+ * In registration mode, it submits a POST request to the Auth Service's `/register` endpoint with the provided email and password.
+ * Upon successful registration, an access token is retrieved and used to create a user record via the App Service's `/user` endpoint,
+ * and the user is logged in using NextAuth's `signIn` function.
+ * In login mode, the form directly invokes NextAuth's `signIn` function with the entered credentials.
+ *
+ * @returns The rendered LoginPage component.
+ */
+const LoginPage: React.FC = () => {
   const [isRegister, setIsRegister] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
+  /**
+   * Handles user registration by sending the registration request and logging in upon success.
+   *
+   * @remarks
+   * This function sends a POST request to the `/register` endpoint with the provided credentials.
+   * If registration is successful, it retrieves an access token, creates a user record via the `/user` endpoint,
+   * and then logs in the user using NextAuth's `signIn` function.
+   *
+   * @param e The form submission event.
+   */
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     const authRes = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/register`, {
@@ -63,6 +68,15 @@ export default function LoginPage() {
     });
   };
 
+  /**
+   * Handles user login by invoking NextAuth's `signIn` function.
+   *
+   * @remarks
+   * This function prevents the default form submission behavior and calls NextAuth's `signIn` function
+   * with the provided email and password to authenticate the user.
+   *
+   * @param e The form submission event.
+   */
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault(); 
     await signIn("credentials", {
@@ -99,4 +113,6 @@ export default function LoginPage() {
       </button>
     </div>
   );
-}
+};
+
+export default LoginPage;
