@@ -1,92 +1,85 @@
-"use client";
-
 import React from "react";
 import { SyncIconProps } from "types/sync-icon-props";
 
-const SyncIcon: React.FC<SyncIconProps> = ({ indicatorState }) => {
-  const Spinner = () => (
-    <>
+const SyncIcon: React.FC<SyncIconProps> = ({ indicatorState, ...props }) => {
+  if (indicatorState === "error") {
+    return (
       <div
+        {...props}
         style={{
-          border: "10px solid #f3f3f3",
-          borderTop: "10px solid #1f618d",
-          borderRadius: "50%",
           width: "60px",
           height: "60px",
-          animation: "spin 1.2s linear infinite",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "2rem",
+          fontWeight: "bold",
+          color: "white",
+          borderRadius: "50%",
+          backgroundColor: "red",
         }}
-      />
-      <style jsx>{`
-        @keyframes spin {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-      `}</style>
-    </>
-  );
-
-  const ErrorIndicator = () => (
-    <div
-      style={{
-        width: "60px",
-        height: "60px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontSize: "2rem",
-        fontWeight: "bold",
-        color: "white",
-        borderRadius: "50%",
-        background: `repeating-linear-gradient(
-          45deg,
-          #ba4a00,
-          #ba4a00 4px,
-          #a03e00 4px,
-          #a03e00 8px
-        )`,
-      }}
-    >
-      X
-    </div>
-  );
-
-  const SuccessIndicator = () => (
-    <div
-      style={{
-        width: "60px",
-        height: "60px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: "50%",
-        textAlign: "center",
-        lineHeight: "60px",
-        color: "white",
-        fontWeight: "bold",
-        background: `repeating-linear-gradient(
-          45deg,
-          #1a5276,
-          #1a5276 4px,
-          #163e5b 4px,
-          #163e5b 8px
-        )`,
-      }}
-    >
-      ✓
-    </div>
-  );
-
-  if (indicatorState === "error") {
-    return <ErrorIndicator />;
+      >
+        X
+      </div>
+    );
   } else if (indicatorState === "success") {
-    return <SuccessIndicator />;
-  } else {
-    return <Spinner />;
+    return (
+      <div
+        {...props}
+        style={{
+          width: "60px",
+          height: "60px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: "2rem",
+          fontWeight: "bold",
+          color: "white",
+          borderRadius: "50%",
+          backgroundColor: "green",
+        }}
+      >
+        ✓
+      </div>
+    );
+  } else if (indicatorState === "syncing") {
+    return (
+      <>
+        <div {...props} className="spinner-container">
+          <div className="spinner" />
+        </div>
+        <style jsx>{`
+          .spinner-container {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-sizing: border-box;
+          }
+          .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #000;
+            border-radius: 50%;
+            box-sizing: border-box;
+            animation: spin 1s linear infinite;
+          }
+          @keyframes spin {
+            0% {
+              transform: rotate(0deg);
+            }
+            100% {
+              transform: rotate(360deg);
+            }
+          }
+        `}</style>
+      </>
+    );
   }
+  return null;
 };
 
-export default React.memo(SyncIcon);
+export default SyncIcon;

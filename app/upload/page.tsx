@@ -1,7 +1,7 @@
 "use client";
 
 import UploadForm from "@/components/UploadForm";
-import WebSockets from "@/components/WebSockets";
+import ProcessVideoWebSocket from "@/components/ProcessVideoWebSocket";
 
 
 export default function UploadPage() {
@@ -9,7 +9,7 @@ export default function UploadPage() {
     <div style={{ textAlign: "center", padding: "20px" }}>
       <h1>Upload a .AVI File</h1>
       <UploadForm />
-      <WebSockets />
+      <ProcessVideoWebSocket />
     </div>
   );
 }
