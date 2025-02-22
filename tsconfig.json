@@ -23,16 +23,17 @@
         "name": "next"
       }
     ],
-    "types": ["jest", "node"]
+    "types": ["jest", "node","@testing-library/jest-dom"]
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     "next-env.d.ts",
     ".next/types/**/*.ts",
-    "jest.config.js",
+    "jest.config.ts",
     "jest.setup.js",
-    "types/**/*.d.ts"  
+    "types/**/*.d.ts",
+    "__tests__/**/*"
   ],
   "exclude": ["node_modules"]
 }
