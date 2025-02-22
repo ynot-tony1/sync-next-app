@@ -1,24 +1,21 @@
-/**
- * HomePage Component
- *
- * Main landing page for logged-in users. 
- * 
- * Uses NextAuth's `useSession` hook to grab the current session data. 
- * If there's no active session, like if the user isn't logged in, 
- * it lets the user know and gives a link to the login page.
- * When a session is found, it shows a welcome message with the
- * user's email, a link to the upload page and a logout button. 
- * The logout button uses NextAuth's `signOut` method, which sends the user back to the login page.
- * 
- * Rendered on the client side, hence 'use client'.
- * Returns a JSX element.
- */
 "use client";
 
+import React from "react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
-export default function HomePage() {
+/**
+ * A React functional component that serves as the main landing page for authenticated users.
+ *
+ * @remarks
+ * This component uses NextAuth's `useSession` hook to obtain the current session data. If no session is present,
+ * it displays a message indicating that the user is not logged in and provides a link to the login page.
+ * When a session is active, it shows a welcome message with the user's email, a link to the upload page,
+ * and a logout button that triggers NextAuth's `signOut` function.
+ *
+ * @returns The rendered HomePage component.
+ */
+const HomePage: React.FC = () => {
   const { data: session } = useSession();
   if (!session) {
     return (
@@ -38,4 +35,6 @@ export default function HomePage() {
       </button>
     </div>
   );
-}
+};
+
+export default HomePage;

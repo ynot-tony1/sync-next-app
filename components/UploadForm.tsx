@@ -1,37 +1,31 @@
-/**
- * UploadForm Component
- *
- * This component renders a form for uploading a file. When a user chooses a file for upload
- * and submits the form, the file is sent to the backend API endpoint for processing.
- *
- * It uses state variables to manage:
- * - The selected file.
- * - Status messages that tell the user about the upload process.
- * - The download URL and filename for the processed file.
- *
- * handleFileChange retrieves the file from the browser and resets any previous status or download information.
- * handleSubmit prevents the default form behavior, validates the file selection, and then uploads the file.
- * Based on the APIs response, it either displays an error message or sets the download link for the user.
- *
- * Rendered on the client side, hence 'use client'.
- * Returns a JSX element.
- */
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 
-export default function UploadForm() {
+/**
+ * A React functional component that renders a file upload form.
+ *
+ * @remarks
+ * This component enables users to select a file and upload it to a backend API endpoint for processing.
+ * Upon form submission, the selected file is sent to the server.
+ * Based on the server response, the component either resets the download state or updates it with a valid download URL and filename.
+ * The component manages state for the selected file, download URL, and download filename.
+ *
+ * @returns The rendered UploadForm component.
+ */
+const UploadForm: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [downloadUrl, setDownloadUrl] = useState<string>("");
   const [downloadFilename, setDownloadFilename] = useState<string>("");
 
   /**
-   * Handles changes to the file input.
+   * Handles changes in the file input.
    *
-   * Retrieves the file from the input, and updates the state. 
-   * If no file is selected it returns null and resets the state variables.
+   * @remarks
+   * This function retrieves the selected file from the event and updates the state accordingly.
+   * It also resets any previously stored download URL and filename.
    *
-   * @param event - The change event from the file input.
+   * @param event The file input change event.
    */
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0] || null;
@@ -41,13 +35,14 @@ export default function UploadForm() {
   };
 
   /**
-   * Handles form submission for file upload.
+   * Handles the file upload form submission.
    *
-   * Prevents the default form behavior, validates that a file has been selected and if so,
-   * sends a POST request with the file to the backend API.
-   * Based on the data from the response, it updates the status message and if successful, sets the download URL and filename.
+   * @remarks
+   * This function prevents the default form submission behavior, validates the file selection,
+   * and sends the file to the backend API for processing.
+   * Depending on the response, it updates the state with either an error or the download URL and filename.
    *
-   * @param event - The form submission event.
+   * @param event The form submission event.
    */
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -110,4 +105,6 @@ export default function UploadForm() {
       )}
     </form>
   );
-}
+};
+
+export default UploadForm;
