@@ -1,109 +1,134 @@
 "use client";
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 /**
- * A React functional component that renders a file upload form.
+ * A React functional component that handles file uploads.
+ * 
+ * This component renders two distinct phases:
+ * - "initial": displays a Browse button and an Upload button.
+ * - "detailed": after the upload begins, displays the download link.
  *
- * @remarks
- * This component enables users to select a file and upload it to a backend API endpoint for processing.
- * Upon form submission, the selected file is sent to the server.
- * Based on the server response, the component either resets the download state or updates it with a valid download URL and filename.
- * The component manages state for the selected file, download URL, and download filename.
+ * It manages file selection, submission, and response handling to update
+ * download information based on the response from the backend.
  *
- * @returns The rendered UploadForm component.
+ * @component
+ * @returns {JSX.Element} The rendered UploadForm component.
  */
+
 const UploadForm: React.FC = () => {
+  const [phase, setPhase] = useState<"initial" | "detailed">("initial");
   const [file, setFile] = useState<File | null>(null);
   const [downloadUrl, setDownloadUrl] = useState<string>("");
   const [downloadFilename, setDownloadFilename] = useState<string>("");
 
   /**
-   * Handles changes in the file input.
-   *
-   * @remarks
-   * This function retrieves the selected file from the event and updates the state accordingly.
-   * It also resets any previously stored download URL and filename.
-   *
-   * @param event The file input change event.
+   * Handles the file input change event.
+   * 
+   * @param {React.ChangeEvent<HTMLInputElement>} e - The file input change event.
    */
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = event.target.files?.[0] || null;
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0] || null;
     setFile(selectedFile);
-    setDownloadUrl("");
-    setDownloadFilename("");
   };
 
   /**
-   * Handles the file upload form submission.
-   *
-   * @remarks
-   * This function prevents the default form submission behavior, validates the file selection,
-   * and sends the file to the backend API for processing.
-   * Depending on the response, it updates the state with either an error or the download URL and filename.
-   *
-   * @param event The form submission event.
+   * Handles the initial upload button click event.
+   * Validates if a file has been selected and then sets the phase to "detailed".
    */
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleInitialUploadClick = () => {
     if (!file) {
+      alert("Please select a file first by clicking 'Browse'.");
       return;
     }
-
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/process`, {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to upload file.");
-      }
-      const data = await response.json();
-
-      if (data.no_audio) {
-        setDownloadUrl("");
-        setDownloadFilename("");
-      } else if (data.no_video) {
-        setDownloadUrl("");
-        setDownloadFilename("");
-      } else if (data.no_fps) {
-        setDownloadUrl("");
-        setDownloadFilename("");
-      } else if (data.already_in_sync) {
-        setDownloadUrl("");
-        setDownloadFilename("");
-      } else {
-        setDownloadUrl(`${process.env.NEXT_PUBLIC_BACKEND_URL}${data.url}`);
-        setDownloadFilename(data.filename);
-      }
-    } catch (error) {
-      console.error("Upload error:", error);
-    }
+    setPhase("detailed");
   };
 
+  /**
+   * Side effect to upload the file when the phase is "detailed".
+   * 
+   * This effect runs when either the phase or the selected file changes.
+   * It constructs a FormData object, sends a POST request to the backend,
+   * and then handles the response to update download URL and filename.
+   */
+  useEffect(() => {
+    const uploadFile = async (): Promise<void> => {
+      if (phase === "detailed" && file) {
+        try {
+          const formData = new FormData();
+          formData.append("file", file);
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/process`,
+            {
+              method: "POST",
+              body: formData,
+            }
+          );
+          if (!response.ok) {
+            throw new Error("Failed to upload file.");
+          }
+          const data = await response.json();
+          if (
+            data.no_audio ||
+            data.no_video ||
+            data.no_fps ||
+            data.already_in_sync
+          ) {
+            setDownloadUrl("");
+            setDownloadFilename("");
+          } else {
+            setDownloadUrl(
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}${data.url}`
+            );
+            setDownloadFilename(data.filename);
+          }
+        } catch (error) {
+          console.error("Upload error:", error);
+        } finally {
+        }
+      }
+    };
+    uploadFile();
+  }, [phase, file]);
+
+  if (phase === "initial") {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-darkblue">
+        <label
+          htmlFor="file-input"
+          className="px-8 py-4 bg-darkblue text-white text-xl rounded cursor-pointer"
+        >
+          Browse
+        </label>
+        <input
+          type="file"
+          id="file-input"
+          onChange={handleFileChange}
+          className="hidden"
+        />
+        <button
+          onClick={handleInitialUploadClick}
+          className="px-8 py-4 bg-darkblue text-white text-xl rounded"
+        >
+          Upload
+        </button>
+      </div>
+    );
+  }
+
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="file-input">Choose file</label>
-      <input
-        id="file-input"
-        type="file"
-        accept=".avi"
-        onChange={handleFileChange}
-        style={{ marginLeft: 10 }}
-      />
-      <button type="submit" disabled={!file} style={{ marginLeft: 10 }}>
-        Upload
-      </button>
-      {downloadUrl && (
-        <a href={downloadUrl} download={downloadFilename}>
-          Download {downloadFilename}
-        </a>
-      )}
-    </form>
+    <div className="flex items-center justify-center p-4 bg-darkblue">
+      <div className="w-full max-w-md mx-auto text-center">
+        {downloadUrl && (
+          <a
+            href={downloadUrl}
+            download={downloadFilename}
+            className="block bg-burntorange text-white text-xl font-bold py-3 rounded shadow hover:opacity-90"
+          >
+            Download
+          </a>
+        )}
+      </div>
+    </div>
   );
 };
 

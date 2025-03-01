@@ -12,6 +12,7 @@ describe('UploadForm', () => {
    * Mocks the global fetch function to simulate file upload responses.
    */
   beforeEach(() => {
+    process.env.NEXT_PUBLIC_BACKEND_URL = '';
     global.fetch = jest.fn(() =>
       Promise.resolve({
         ok: true,
@@ -33,7 +34,7 @@ describe('UploadForm', () => {
    */
   it('renders file input and upload button', () => {
     render(<UploadForm />);
-    expect(screen.getByLabelText(/choose file/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/browse/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /upload/i })).toBeInTheDocument();
   });
 
@@ -43,19 +44,20 @@ describe('UploadForm', () => {
    * This test simulates:
    * - Selecting a file using the file input.
    * - Clicking the upload button.
-   * - Verifying that a download link with the expected filename is rendered.
+   * - Verifying that a download link with the expected attributes is rendered.
    */
   it('uploads a file and displays download link', async () => {
     render(<UploadForm />);
-    const fileInput = screen.getByLabelText(/choose file/i);
+    const fileInput = screen.getByLabelText(/browse/i);
     const file = new File(["rando0m content"], "synksynk-cherrou.avi", { type: "video/avi" });
     
     fireEvent.change(fileInput, { target: { files: [file] } });
-
+    
     const uploadButton = screen.getByRole('button', { name: /upload/i });
     fireEvent.click(uploadButton);
 
-    const downloadLink = await waitFor(() => screen.getByText(/download file\.avi/i));
+    const downloadLink = await waitFor(() => screen.getByRole('link', { name: /download/i }));
     expect(downloadLink).toBeInTheDocument();
+    expect(downloadLink).toHaveAttribute("download", "file.avi");
   });
 });

@@ -9,8 +9,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        darkblue: "#1a5276",   // Darker blue background
+        creme: "#bdb5b0",      // Creme text color
+        burntorange: "#ba4a00",// Burnt orange for borders/buttons
       },
     },
   },
