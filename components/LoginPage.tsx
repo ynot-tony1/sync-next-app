@@ -90,14 +90,8 @@ import { signIn } from "next-auth/react";
     };
   
     return (
-      <div
-        className="min-h-screen flex flex-col items-center justify-center px-4"
-        style={{ backgroundColor: "#1a5276" }} 
-      >
-        <h1
-          className="text-2xl font-bold mb-6"
-          style={{ color: "#bdb5b0" }} 
-        >
+      <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-darkblue">
+        <h1 className="text-2xl font-bold mb-6 text-creme">
           {isRegister ? "Register" : "Login"}
         </h1>
         <form
@@ -110,8 +104,7 @@ import { signIn } from "next-auth/react";
             value={userEmail}
             onChange={(e) => setUserEmail(e.target.value)}
             required
-            className="border rounded p-2 focus:outline-none"
-            style={{ borderColor: "#ba4a00" }}
+            className="border rounded p-2 focus:outline-none focus:ring-2 focus:ring-burntorange"
           />
           <input
             type="password"
@@ -119,21 +112,18 @@ import { signIn } from "next-auth/react";
             value={userPassword}
             onChange={(e) => setUserPassword(e.target.value)}
             required
-            className="border rounded p-2 focus:outline-none"
-            style={{ borderColor: "#ba4a00" }} 
+            className="border rounded p-2 focus:outline-none focus:ring-2 focus:ring-burntorange"
           />
           <button
             type="submit"
-            className="px-4 py-2 rounded transition-colors"
-            style={{ backgroundColor: "#ba4a00", color: "white" }}
+            className="px-4 py-2 rounded transition-colors bg-burntorange text-white"
           >
             {isRegister ? "Register" : "Login"}
           </button>
         </form>
         <button
           onClick={() => setIsRegister(!isRegister)}
-          className="mt-4 hover:underline"
-          style={{ color: "#bdb5b0" }} 
+          className="mt-4 hover:underline text-creme"
         >
           Switch to {isRegister ? "Login" : "Register"}
         </button>
@@ -142,4 +132,3 @@ import { signIn } from "next-auth/react";
   };
   
   export default LoginPage;
-  
