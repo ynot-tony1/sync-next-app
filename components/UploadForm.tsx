@@ -1,31 +1,20 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import ProcessVideoWebSocket from "@/components/ProcessVideoWebSocket";
+import React, { useState, useEffect } from "react";
 
 const UploadForm: React.FC = () => {
-  // "initial" shows the two buttons; "detailed" shows the upload result and progress bar.
   const [phase, setPhase] = useState<"initial" | "detailed">("initial");
   const [file, setFile] = useState<File | null>(null);
   const [downloadUrl, setDownloadUrl] = useState<string>("");
   const [downloadFilename, setDownloadFilename] = useState<string>("");
-  const [isUploading, setIsUploading] = useState(false);
 
-  // Reference to the hidden file input.
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Trigger the file dialog.
-  const handleBrowseClick = () => {
-    fileInputRef.current?.click();
-  };
 
-  // Save the selected file.
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0] || null;
     setFile(selectedFile);
   };
 
-  // When "Upload" is clicked in the initial view, if a file is selected, switch phase.
   const handleInitialUploadClick = () => {
     if (!file) {
       alert("Please select a file first by clicking 'Browse'.");
@@ -34,11 +23,9 @@ const UploadForm: React.FC = () => {
     setPhase("detailed");
   };
 
-  // Automatically submit the file when in the detailed phase.
   useEffect(() => {
     const uploadFile = async (): Promise<void> => {
       if (phase === "detailed" && file) {
-        setIsUploading(true);
         try {
           const formData = new FormData();
           formData.append("file", file);
@@ -70,14 +57,12 @@ const UploadForm: React.FC = () => {
         } catch (error) {
           console.error("Upload error:", error);
         } finally {
-          setIsUploading(false);
         }
       }
     };
     uploadFile();
   }, [phase, file]);
 
-  // Initial view: Only the Browse and Upload buttons.
   if (phase === "initial") {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-darkblue">
@@ -103,7 +88,6 @@ const UploadForm: React.FC = () => {
     );
   }
 
-  // Detailed view: Render only the upload result (download link) and progress bar.
   return (
     <div className="flex items-center justify-center p-4 bg-darkblue">
       <div className="w-full max-w-md mx-auto text-center">

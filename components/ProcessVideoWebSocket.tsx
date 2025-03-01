@@ -1,14 +1,13 @@
 "use client";
-
 import React from "react";
 import ProgressBar from "./ProgressBar";
 import SyncIcon from "./SyncIcon";
 import { useWebSocket } from "@/components/WebSocketContext"; // adjust the path as needed
 
 const ProcessVideoWebSocket: React.FC<{ visible: boolean }> = ({ visible }) => {
-  if (!visible) return null;
-
   const { message, progressSteps, indicatorState, progressPercent } = useWebSocket();
+
+  if (!visible) return null;
 
   return (
     <div className="flex flex-col items-center justify-start p-5 bg-darkblue text-black">
