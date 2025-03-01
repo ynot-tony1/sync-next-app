@@ -9,6 +9,16 @@ import React, {
 } from "react";
 import { Step, IndicatorState } from "@/types/web-socket-props";
 
+/**
+ * Interface defining the shape of the WebSocket context value.
+ *
+ * @interface WebSocketContextType
+ * @property {string} message - The latest message received from the WebSocket.
+ * @property {string[]} progressSteps - The list of progress step labels that have been reached.
+ * @property {IndicatorState} indicatorState - The current indicator state ("error", "syncing", or "success").
+ * @property {boolean} wsConnected - Whether the WebSocket connection is currently established.
+ * @property {number} progressPercent - The overall progress percentage based on completed steps.
+ */
 interface WebSocketContextType {
   message: string;
   progressSteps: string[];
@@ -17,8 +27,20 @@ interface WebSocketContextType {
   progressPercent: number;
 }
 
+/**
+ * The React context for WebSocket state.
+ *
+ * @constant
+ * @type {React.Context<WebSocketContextType | undefined>}
+ */
 const WebSocketContext = createContext<WebSocketContextType | undefined>(undefined);
 
+/**
+ * An array of important progress steps that are used to parse incoming messages.
+ *
+ * @constant
+ * @type {Step[]}
+ */
 const IMPORTANT_STEPS: Step[] = [
   { id: "1", matchText: "Here we go", label: "Initiate" },
   { id: "2", matchText: "Setting up our filing system", label: "File Setup" },
@@ -31,6 +53,19 @@ const IMPORTANT_STEPS: Step[] = [
   { id: "9", matchText: "download your file", label: "Complete" },
 ];
 
+/**
+ * WebSocketProvider component that establishes and manages a WebSocket connection,
+ * processes incoming messages, and provides state values via React context.
+ *
+ * @param {Object} props - Component props.
+ * @param {ReactNode} props.children - The child components that require access to WebSocket context.
+ * @returns {JSX.Element} A provider component that supplies WebSocket state to its children.
+ *
+ * @example
+ * <WebSocketProvider>
+ *   <MyComponent />
+ * </WebSocketProvider>
+ */
 export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   const [message, setMessage] = useState("");
   const [progressSteps, setProgressSteps] = useState<string[]>([]);
@@ -40,6 +75,9 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   const messageQueue = useRef<string[]>([]);
 
   useEffect(() => {
+    /**
+     * Establishes a new WebSocket connection and sets up its event handlers.
+     */
     const connectWS = () => {
       const ws = new WebSocket("ws://localhost:8000/ws");
       ws.onopen = () => setWsConnected(true);
@@ -65,6 +103,9 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (!wsConnected) return;
+    /**
+     * Interval for processing queued WebSocket messages.
+     */
     const intervalId = window.setInterval(() => {
       if (messageQueue.current.length) {
         const nextMsg = messageQueue.current.shift() || "";
@@ -97,12 +138,19 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
 
   const totalSteps = IMPORTANT_STEPS.length;
   const progressPercent = Math.min(100, Math.round((progressSteps.length / totalSteps) * 100));
-
   const value = { message, progressSteps, indicatorState, wsConnected, progressPercent };
-
   return <WebSocketContext.Provider value={value}>{children}</WebSocketContext.Provider>;
 };
 
+/**
+ * Hook that provides access to the WebSocket context.
+ *
+ * @throws Will throw an error if used outside of a WebSocketProvider.
+ * @returns {WebSocketContextType} The current WebSocket context value.
+ *
+ * @example
+ * const { message, progressSteps } = useWebSocket();
+ */
 export const useWebSocket = () => {
   const context = useContext(WebSocketContext);
   if (!context) {

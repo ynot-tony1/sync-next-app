@@ -26,4 +26,13 @@ jobs:
         run: npm run build
 
       - name: Run tests
+        env:
+          DATABASE_URL_AUTH: "postgresql://auth_admin:dbpass@localhost:5432/auth_db"
+          DATABASE_URL_APP: "postgresql://app_admin:apppassword@localhost:5432/app_db"
+          NEXTAUTH_SECRET: "supersecretkey"
+          NEXT_PUBLIC_BACKEND_URL: "http://localhost:8000"
+          NEXT_PUBLIC_AUTH_URL: "http://localhost:8001"
+          NEXT_PUBLIC_APP_URL: "http://localhost:8002"
+          NEXTAUTH_JWT_ENCRYPTION: "false"
+          NEXTAUTH_URL: "http://localhost:3000"
         run: npm test

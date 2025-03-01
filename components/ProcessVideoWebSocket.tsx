@@ -4,7 +4,27 @@ import ProgressBar from "./ProgressBar";
 import SyncIcon from "./SyncIcon";
 import { useWebSocket } from "@/components/WebSocketContext"; // adjust the path as needed
 
+/**
+ * A React functional component that renders a WebSocket-driven progress view.
+ *
+ * This component uses a WebSocket context to receive real-time messages,
+ * progress steps, and indicator states, and then renders a progress bar along
+ * with a corresponding sync icon based on the current state. The component is
+ * conditionally rendered based on the `visible` prop.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {boolean} props.visible - Determines if the component should be rendered.
+ * @returns {JSX.Element | null} The rendered component or null if not visible.
+ */
 const ProcessVideoWebSocket: React.FC<{ visible: boolean }> = ({ visible }) => {
+  /**
+   * Retrieves WebSocket-related state from the context.
+   * - message: The latest message from the WebSocket.
+   * - progressSteps: An array of progress step labels.
+   * - indicatorState: The current state indicator ("error", "syncing", "success").
+   * - progressPercent: The computed progress percentage.
+   */
   const { message, progressSteps, indicatorState, progressPercent } = useWebSocket();
 
   if (!visible) return null;

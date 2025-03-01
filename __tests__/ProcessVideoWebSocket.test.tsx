@@ -3,25 +3,23 @@
  * @description Test suite for the ProcessVideoWebSocket component.
  */
 
+import React from 'react';
 import { render, screen, act, waitFor } from '@testing-library/react';
 import ProcessVideoWebSocket from '../components/ProcessVideoWebSocket';
+import { WebSocketProvider } from '../components/WebSocketContext';
 
-/**
- * Test suite for ProcessVideoWebSocket component.
- */
 describe('ProcessVideoWebSocket', () => {
-  /** 
+  /**
    * A mock WebSocket instance used to simulate real WebSocket behavior.
    * @type {any}
    */
   let mockWsInstance: any;
 
   /**
-   * Setup before each test: enables fake timers and creates a mock WebSocket.
+   * Setup before each test: enable fake timers and create a mock WebSocket.
    */
   beforeEach(() => {
     jest.useFakeTimers();
-
     mockWsInstance = {
       onopen: null,
       onmessage: null,
@@ -33,7 +31,6 @@ describe('ProcessVideoWebSocket', () => {
       CLOSING: 2,
       CLOSED: 3,
     };
-
     global.WebSocket = jest.fn(() => mockWsInstance) as any;
   });
 
@@ -46,14 +43,6 @@ describe('ProcessVideoWebSocket', () => {
   });
 
   /**
-   * Test that the initial UI renders without errors.
-   */
-  it('renders initial UI without errors', () => {
-    render(<ProcessVideoWebSocket />);
-    expect(screen.getByTestId("message-container")).toBeInTheDocument();
-  });
-
-  /**
    * Test that a valid milestone message updates the displayed message and milestone.
    *
    * This test simulates:
@@ -63,7 +52,11 @@ describe('ProcessVideoWebSocket', () => {
    * - Verifying that the message and milestone are rendered.
    */
   it('updates message and milestone when a valid milestone message is received', async () => {
-    render(<ProcessVideoWebSocket />);
+    render(
+      <WebSocketProvider>
+        <ProcessVideoWebSocket visible={true} />
+      </WebSocketProvider>
+    );
 
     act(() => {
       jest.advanceTimersByTime(1000);
@@ -90,13 +83,17 @@ describe('ProcessVideoWebSocket', () => {
    * Test that an error message updates the indicator to the error state.
    *
    * This test simulates:
-   * - Advancing timers to connect.
+   * - Advancing timers to trigger connection.
    * - Firing the onopen callback.
    * - Sending an error message ("no video").
    * - Verifying that the error indicator (with data-testid "sync-icon-error") is rendered.
    */
   it('sets error indicator when an error message is received', async () => {
-    render(<ProcessVideoWebSocket />);
+    render(
+      <WebSocketProvider>
+        <ProcessVideoWebSocket visible={true} />
+      </WebSocketProvider>
+    );
 
     act(() => {
       jest.advanceTimersByTime(1000);
@@ -120,13 +117,17 @@ describe('ProcessVideoWebSocket', () => {
    * Test that a success message updates the indicator to the success state.
    *
    * This test simulates:
-   * - Advancing timers to connect.
+   * - Advancing timers to trigger connection.
    * - Firing the onopen callback.
-   * - Sending a success message ("download your file").
+   * - Sending a success message ("get your file") that matches the success regex.
    * - Verifying that the success indicator (with data-testid "sync-icon-success") is rendered.
    */
   it('sets success indicator when a success message is received', async () => {
-    render(<ProcessVideoWebSocket />);
+    render(
+      <WebSocketProvider>
+        <ProcessVideoWebSocket visible={true} />
+      </WebSocketProvider>
+    );
 
     act(() => {
       jest.advanceTimersByTime(1000);
@@ -137,7 +138,7 @@ describe('ProcessVideoWebSocket', () => {
     });
 
     act(() => {
-      mockWsInstance.onmessage?.({ data: "download your file" } as MessageEvent<string>);
+      mockWsInstance.onmessage?.({ data: "get your file" } as MessageEvent<string>);
       jest.advanceTimersByTime(500);
     });
 

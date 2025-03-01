@@ -1,6 +1,19 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
+
+/**
+ * A React functional component that handles file uploads.
+ * 
+ * This component renders two distinct phases:
+ * - "initial": displays a Browse button and an Upload button.
+ * - "detailed": after the upload begins, displays the download link.
+ *
+ * It manages file selection, submission, and response handling to update
+ * download information based on the response from the backend.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered UploadForm component.
+ */
 
 const UploadForm: React.FC = () => {
   const [phase, setPhase] = useState<"initial" | "detailed">("initial");
@@ -8,13 +21,20 @@ const UploadForm: React.FC = () => {
   const [downloadUrl, setDownloadUrl] = useState<string>("");
   const [downloadFilename, setDownloadFilename] = useState<string>("");
 
-
-
+  /**
+   * Handles the file input change event.
+   * 
+   * @param {React.ChangeEvent<HTMLInputElement>} e - The file input change event.
+   */
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0] || null;
     setFile(selectedFile);
   };
 
+  /**
+   * Handles the initial upload button click event.
+   * Validates if a file has been selected and then sets the phase to "detailed".
+   */
   const handleInitialUploadClick = () => {
     if (!file) {
       alert("Please select a file first by clicking 'Browse'.");
@@ -23,6 +43,13 @@ const UploadForm: React.FC = () => {
     setPhase("detailed");
   };
 
+  /**
+   * Side effect to upload the file when the phase is "detailed".
+   * 
+   * This effect runs when either the phase or the selected file changes.
+   * It constructs a FormData object, sends a POST request to the backend,
+   * and then handles the response to update download URL and filename.
+   */
   useEffect(() => {
     const uploadFile = async (): Promise<void> => {
       if (phase === "detailed" && file) {
@@ -103,7 +130,6 @@ const UploadForm: React.FC = () => {
       </div>
     </div>
   );
-  
 };
 
 export default UploadForm;
