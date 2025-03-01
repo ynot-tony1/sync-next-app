@@ -7,8 +7,7 @@ import { Step, IndicatorState } from "@/types/web-socket-props";
 
 /**
  * An array of key milestones in the video processing workflow.
- *
- * @remarks
+ -* @remarks
  * Each milestone is represented by a {@link Step} object with the following properties:
  * - **id**: A unique identifier.
  * - **matchText**: A text fragment that, when present in an incoming message, indicates that the milestone has been reached.
@@ -29,12 +28,14 @@ const IMPORTANT_STEPS: Step[] = [
 /**
  * A React functional component that establishes a WebSocket connection to monitor video processing status.
  *
- * @remarks
- * This component tracks video processing by:
- * - Opening a WebSocket connection to `ws://localhost:8000/ws` and setting up event handlers.
- * - Storing incoming messages in a message queue and processing them every 500ms.
- * - Updating state variables: `message` (current message), `progressSteps` (milestones reached), and `indicatorState` (sync status).
- * - Rendering the current message (in an element with data-testid "message-container"), a progress bar, and a sync icon.
+ * This component:
+ * - Opens a WebSocket connection to `ws://localhost:8000/ws` and sets up event handlers.
+ * - Stores incoming messages in a message queue and processes them at regular intervals.
+ * - Updates state variables:
+ *   - **message**: The current status message.
+ *   - **progressSteps**: An array of labels for the milestones reached.
+ *   - **indicatorState**: The current synchronization state (syncing, error, or success).
+ * - Renders the current message, a progress bar, a spinner (SyncIcon), and a color chart below the spinner.
  *
  * @returns The rendered ProcessVideoWebSocket component.
  */
@@ -47,6 +48,9 @@ const ProcessVideoWebSocket: React.FC = () => {
   const messageQueue = useRef<string[]>([]);
 
   useEffect(() => {
+    /**
+     * Establishes the WebSocket connection and sets up event handlers.
+     */
     const connectWS = (): void => {
       const ws = new WebSocket("ws://localhost:8000/ws");
 
@@ -79,6 +83,12 @@ const ProcessVideoWebSocket: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    /**
+     * Processes messages from the WebSocket connection at regular intervals.
+     * - Updates the current message.
+     * - Sets the indicator state based on message content.
+     * - Records milestones reached.
+     */
     if (!wsConnected) return;
   
     const intervalId = window.setInterval(() => {
@@ -89,7 +99,7 @@ const ProcessVideoWebSocket: React.FC = () => {
         if (/(no video|couldn'?t find any video stream|no audio|error|aborting process)/i.test(nextMsg)) {
           setIndicatorState("error");
           messageQueue.current = [];
-        } else if (/(already\s+in\s+sync|already\s+synchronized|download your file|our clip is already in sync)/i.test(nextMsg)) {
+        } else if (/(already\s+in\s+sync|already\s+synchronized|get your file|our clip is already in sync)/i.test(nextMsg)) {
           setIndicatorState("success");
         } else {
           setIndicatorState("syncing");
@@ -114,10 +124,10 @@ const ProcessVideoWebSocket: React.FC = () => {
     };
   }, [wsConnected]);
   
-
   const totalSteps = IMPORTANT_STEPS.length;
   const progressPercent = Math.min(100, Math.round((progressSteps.length / totalSteps) * 100));
 
+  
   return (
     <div
       style={{
@@ -150,7 +160,6 @@ const ProcessVideoWebSocket: React.FC = () => {
           <SyncIcon indicatorState="syncing" data-testid="sync-icon-syncing" />
         )}
       </div>
-
     </div>
   );
 };

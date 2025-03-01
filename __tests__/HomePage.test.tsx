@@ -19,15 +19,11 @@ import { render, screen } from '@testing-library/react';
 import HomePage from '../components/HomePage';
 import { useSession, signOut } from 'next-auth/react';
 
-// Mock the next-auth/react module to control session state for testing
 jest.mock('next-auth/react', () => ({
   useSession: jest.fn(),
   signOut: jest.fn(),
 }));
 
-/**
- * Test suite for the HomePage component.
- */
 describe('HomePage', () => {
   /**
    * Test case: Renders the "not logged in" view when there is no active session.
@@ -53,13 +49,10 @@ describe('HomePage', () => {
    * a logout button.
    */
   it('renders welcome view when session exists', () => {
-    // Arrange: Set useSession to return a valid session object.
     (useSession as jest.Mock).mockReturnValue({
       data: { user: { email: "test@example.com" } },
     });
-
     render(<HomePage />);
-
     expect(
       screen.getByText(/welcome, test@example.com/i)
     ).toBeInTheDocument();

@@ -33,7 +33,7 @@ describe('UploadForm', () => {
    */
   it('renders file input and upload button', () => {
     render(<UploadForm />);
-    expect(screen.getByLabelText(/choose file/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/browse/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /upload/i })).toBeInTheDocument();
   });
 
@@ -47,7 +47,7 @@ describe('UploadForm', () => {
    */
   it('uploads a file and displays download link', async () => {
     render(<UploadForm />);
-    const fileInput = screen.getByLabelText(/choose file/i);
+    const fileInput = screen.getByLabelText(/browse/i);
     const file = new File(["rando0m content"], "synksynk-cherrou.avi", { type: "video/avi" });
     
     fireEvent.change(fileInput, { target: { files: [file] } });

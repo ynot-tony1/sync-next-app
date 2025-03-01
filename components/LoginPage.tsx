@@ -16,57 +16,7 @@ import { signIn } from "next-auth/react";
  *
  * @returns The rendered LoginPage component.
  */
-const LoginPage: React.FC = () => {
-  const [isRegister, setIsRegister] = useState(false);
-  const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
 
-  /**
-   * Handles user registration by sending the registration request and logging in upon success.
-   *
-   * @remarks
-   * This function sends a POST request to the `/register` endpoint with the provided credentials.
-   * If registration is successful, it retrieves an access token, creates a user record via the `/user` endpoint,
-   * and then logs in the user using NextAuth's `signIn` function.
-   *
-   * @param e The form submission event.
-   */
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const authRes = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/register`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: userEmail, password: userPassword }),
-    });
-    
-    if (!authRes.ok) {
-      alert("Registration failed at Auth Service");
-      return;
-    }
-
-    const authData = await authRes.json();
-    const token = authData.access_token;
-    
-    const userRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/user`, {  
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      },
-    });
-    
-    if (!userRes.ok) {
-      alert("User creation failed");
-      return;
-    }
-    
-    await signIn("credentials", {
-      redirect: true,
-      callbackUrl: "/",
-      email: userEmail,
-      password: userPassword,
-    });
-  };
 
   /**
    * Handles user login by invoking NextAuth's `signIn` function.
@@ -77,42 +27,119 @@ const LoginPage: React.FC = () => {
    *
    * @param e The form submission event.
    */
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault(); 
-    await signIn("credentials", {
-      redirect: true,
-      callbackUrl: "/",
-      email: userEmail,
-      password: userPassword,
-    });
-  };
-
-  return (
-    <div>
-      <h1>{isRegister ? "Register" : "Login"}</h1>
-      <form onSubmit={isRegister ? handleRegister : handleLogin}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={userEmail}
-          onChange={(e) => setUserEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={userPassword}
-          onChange={(e) => setUserPassword(e.target.value)}
-          required
-        />
-        <button type="submit">{isRegister ? "Register" : "Login"}</button>
-      </form>
+  const LoginPage: React.FC = () => {
+    const [isRegister, setIsRegister] = useState(false);
+    const [userEmail, setUserEmail] = useState("");
+    const [userPassword, setUserPassword] = useState("");
+  
+    /**
+     * Handles user registration by sending the registration request and logging in upon success.
+     *
+     * @param e The form submission event.
+     */
+    const handleRegister = async (e: React.FormEvent) => {
+      e.preventDefault();
+      const authRes = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: userEmail, password: userPassword }),
+      });
       
-      <button onClick={() => setIsRegister(!isRegister)}>
-        Switch to {isRegister ? "Login" : "Register"}
-      </button>
-    </div>
-  );
-};
-
-export default LoginPage;
+      if (!authRes.ok) {
+        alert("Registration failed at Auth Service");
+        return;
+      }
+  
+      const authData = await authRes.json();
+      const token = authData.access_token;
+      
+      const userRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/user`, {  
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+      });
+      
+      if (!userRes.ok) {
+        alert("User creation failed");
+        return;
+      }
+      
+      await signIn("credentials", {
+        redirect: true,
+        callbackUrl: "/",
+        email: userEmail,
+        password: userPassword,
+      });
+    };
+  
+    /**
+     * Handles user login by invoking NextAuth's signIn function.
+     *
+     * @param e The form submission event.
+     */
+    const handleLogin = async (e: React.FormEvent) => {
+      e.preventDefault(); 
+      await signIn("credentials", {
+        redirect: true,
+        callbackUrl: "/",
+        email: userEmail,
+        password: userPassword,
+      });
+    };
+  
+    return (
+      <div
+        className="min-h-screen flex flex-col items-center justify-center px-4"
+        style={{ backgroundColor: "#1a5276" }} 
+      >
+        <h1
+          className="text-2xl font-bold mb-6"
+          style={{ color: "#bdb5b0" }} 
+        >
+          {isRegister ? "Register" : "Login"}
+        </h1>
+        <form
+          onSubmit={isRegister ? handleRegister : handleLogin}
+          className="flex flex-col w-full max-w-sm space-y-4"
+        >
+          <input
+            type="email"
+            placeholder="Email"
+            value={userEmail}
+            onChange={(e) => setUserEmail(e.target.value)}
+            required
+            className="border rounded p-2 focus:outline-none"
+            style={{ borderColor: "#ba4a00" }}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={userPassword}
+            onChange={(e) => setUserPassword(e.target.value)}
+            required
+            className="border rounded p-2 focus:outline-none"
+            style={{ borderColor: "#ba4a00" }} 
+          />
+          <button
+            type="submit"
+            className="px-4 py-2 rounded transition-colors"
+            style={{ backgroundColor: "#ba4a00", color: "white" }}
+          >
+            {isRegister ? "Register" : "Login"}
+          </button>
+        </form>
+        <button
+          onClick={() => setIsRegister(!isRegister)}
+          className="mt-4 hover:underline"
+          style={{ color: "#bdb5b0" }} 
+        >
+          Switch to {isRegister ? "Login" : "Register"}
+        </button>
+      </div>
+    );
+  };
+  
+  export default LoginPage;
+  
