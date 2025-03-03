@@ -50,7 +50,7 @@ const IMPORTANT_STEPS: Step[] = [
   { id: "6", matchText: "Pass number", label: "Sync Passses" },
   { id: "7", matchText: "Adjusting the streams in your file", label: "Adjust" },
   { id: "8", matchText: "Making the final shift", label: "Final Shift" },
-  { id: "9", matchText: "download your file", label: "Complete" },
+  { id: "9", matchText: "orange", label: "Complete" },
 ];
 
 /**

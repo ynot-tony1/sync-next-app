@@ -1,50 +1,64 @@
+/**
+ * ProcessVideoWebSocket Component.
+ *
+ * @remarks
+ * Renders a progress display for video processing that includes a progress bar and a sync indicator.
+ * The component uses the WebSocket context to retrieve processing messages and milestones, and the
+ * UploadFile context to obtain the download link when processing is successful.
+ *
+ * @param {Object} props - The component properties.
+ * @param {boolean} props.visible - A flag indicating whether the component should be rendered.
+ * @returns {JSX.Element | null} The rendered component if visible; otherwise, null.
+ */
 "use client";
 import React from "react";
 import ProgressBar from "./ProgressBar";
 import SyncIcon from "./SyncIcon";
-import { useWebSocket } from "@/components/WebSocketContext"; // adjust the path as needed
+import { useWebSocket } from "@/components/WebSocketContext";
+import { useUploadFile } from "@/components/UploadFileContext"; 
+
 
 /**
- * A React functional component that renders a WebSocket-driven progress view.
+ * Functional component that displays the video processing status.
  *
- * This component uses a WebSocket context to receive real-time messages,
- * progress steps, and indicator states, and then renders a progress bar along
- * with a corresponding sync icon based on the current state. The component is
- * conditionally rendered based on the `visible` prop.
- *
- * @component
- * @param {Object} props - The component props.
- * @param {boolean} props.visible - Determines if the component should be rendered.
- * @returns {JSX.Element | null} The rendered component or null if not visible.
+ * @remarks
+ * The component retrieves the current message, processing milestones, indicator state, and progress percentage from the WebSocket context.
+ * It also retrieves the download URL and filename from the UploadFile context. Depending on the current indicator state, the component renders
+ * a synchronization icon that may be wrapped in an anchor tag if a download link is available.
  */
 const ProcessVideoWebSocket: React.FC<{ visible: boolean }> = ({ visible }) => {
-  /**
-   * Retrieves WebSocket-related state from the context.
-   * - message: The latest message from the WebSocket.
-   * - progressSteps: An array of progress step labels.
-   * - indicatorState: The current state indicator ("error", "syncing", "success").
-   * - progressPercent: The computed progress percentage.
-   */
   const { message, progressSteps, indicatorState, progressPercent } = useWebSocket();
+  const { downloadUrl, downloadFilename } = useUploadFile(); 
 
   if (!visible) return null;
 
   return (
-    <div className="flex flex-col items-center justify-start p-5 bg-darkblue text-black">
-      <div data-testid="message-container" className="text-2xl my-5 min-h-[3rem]">
+    <div className="flex flex-col items-center justify-start p-5 bg-darkblue text-creme font-sans">
+      <div
+        data-testid="message-container"
+        className="text-2xl my-5 min-h-[3rem] font-bold text-center"
+      >
         {message}
       </div>
+      
       <ProgressBar
-        progressPercent={progressPercent}
+        progressPercent={progressSteps.length === 9 ? 100 : progressPercent}
         steps={progressSteps.map((step, index) => ({ id: (index + 1).toString(), label: step }))}
         progressSteps={progressSteps}
       />
+
       <div className="mt-12">
-        {indicatorState !== "syncing" && indicatorState === "error" && (
+        {indicatorState === "error" && (
           <SyncIcon indicatorState="error" data-testid="sync-icon-error" />
         )}
-        {indicatorState !== "syncing" && indicatorState === "success" && (
-          <SyncIcon indicatorState="success" data-testid="sync-icon-success" />
+        {indicatorState === "success" && downloadUrl ? (
+          <a href={downloadUrl} download={downloadFilename}>
+            <SyncIcon indicatorState="success" data-testid="sync-icon-success" />
+          </a>
+        ) : (
+          indicatorState === "success" && (
+            <SyncIcon indicatorState="success" data-testid="sync-icon-success" />
+          )
         )}
         {indicatorState === "syncing" && (
           <SyncIcon indicatorState="syncing" data-testid="sync-icon-syncing" />

@@ -43,7 +43,7 @@ const SyncIcon: React.FC<SyncIconProps> = ({ indicatorState, ...props }) => {
           fontWeight: "bold",
           color: "white",
           borderRadius: "50%",
-          backgroundColor: "red",
+          backgroundColor: "#ba4a00",
         }}
       >
         X
@@ -63,7 +63,7 @@ const SyncIcon: React.FC<SyncIconProps> = ({ indicatorState, ...props }) => {
           fontWeight: "bold",
           color: "white",
           borderRadius: "50%",
-          backgroundColor: "green",
+          backgroundColor: "#ba4a00",
         }}
       >
         ✓
@@ -89,7 +89,7 @@ const SyncIcon: React.FC<SyncIconProps> = ({ indicatorState, ...props }) => {
             width: 60px;
             height: 60px;
             border: 4px solid rgba(0, 0, 0, 0.1);
-            border-top: 4px solid #000;
+            border-top: 4px solid #ba4a00; /* Burnt orange */
             border-radius: 50%;
             box-sizing: border-box;
             animation: spin 1s linear infinite;

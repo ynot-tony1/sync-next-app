@@ -20,8 +20,8 @@ const HomePage: React.FC = () => {
 
   if (!session) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center" style={{ backgroundColor: "#1a5276" }}>
-        <p className="mb-4 text-lg" style={{ color: "#ba4a00" }}>You’re not logged in</p>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-darkblue">
+        <p className="mb-4 text-lg text-creme">You’re not logged in</p>
         <Link href="/login" className="text-blue-500 hover:underline text-lg">
           Go to Login
         </Link>
@@ -30,20 +30,27 @@ const HomePage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center" style={{ backgroundColor: "#1a5276" }}>
-      <h1 className="text-2xl font-bold mb-4" style={{ color: "#bdb5b0" }}>
-        Welcome, {session.user?.email}!
-      </h1>
-      <Link href="/upload" className="text-blue-500 hover:underline mb-4">
-        Go to Upload
-      </Link>
-      <button
-        onClick={() => signOut({ callbackUrl: "/login" })}
-        style={{ backgroundColor: "#ba4a00" }}
-        className="px-4 py-2 text-white rounded"
-      >
-        Logout
-      </button>
+    <div className="min-h-screen flex flex-col bg-darkblue text-creme">
+      <div className="flex-grow flex flex-col items-center justify-center">
+        <h1 className="text-5xl font-bold mb-8">
+          Welcome, {session.user?.email}!
+        </h1>
+        <Link
+          href="/upload"
+          className="px-12 py-8 bg-burntorange text-white text-3xl font-bold rounded shadow hover:opacity-90 mb-8"
+        >
+          Upload
+        </Link>
+      </div>
+
+      <div className="p-4 flex justify-center">
+        <button
+          onClick={() => signOut({ callbackUrl: "/login" })}
+          className="px-6 py-3 bg-burntorange text-white rounded shadow"
+        >
+          Logout
+        </button>
+      </div>
     </div>
   );
 };
