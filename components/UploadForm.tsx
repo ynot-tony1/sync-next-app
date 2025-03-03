@@ -1,39 +1,49 @@
+/**
+ * UploadForm Component.
+ *
+ * @remarks
+ * Renders a file upload form that allows users to browse for a file and initiate an upload.
+ * Upon initiating the upload, the component sends the file to the backend and updates the
+ * download link state via the UploadFileContext.
+ *
+ * This component manages two phases: the "initial" phase displays the file input and upload button,
+ * while the "detailed" phase triggers the file upload.
+ *
+ * @returns {JSX.Element | null} The rendered upload form when in the initial phase; otherwise, null.
+ */
 "use client";
 import React, { useState, useEffect } from "react";
-
-/**
- * A React functional component that handles file uploads.
- * 
- * This component renders two distinct phases:
- * - "initial": displays a Browse button and an Upload button.
- * - "detailed": after the upload begins, displays the download link.
- *
- * It manages file selection, submission, and response handling to update
- * download information based on the response from the backend.
- *
- * @component
- * @returns {JSX.Element} The rendered UploadForm component.
- */
+import { useUploadFile } from "./UploadFileContext";
 
 const UploadForm: React.FC = () => {
   const [phase, setPhase] = useState<"initial" | "detailed">("initial");
   const [file, setFile] = useState<File | null>(null);
-  const [downloadUrl, setDownloadUrl] = useState<string>("");
-  const [downloadFilename, setDownloadFilename] = useState<string>("");
+  const [hasUploaded, setHasUploaded] = useState(false);
+  const { setDownloadLink } = useUploadFile();
 
   /**
-   * Handles the file input change event.
-   * 
-   * @param {React.ChangeEvent<HTMLInputElement>} e - The file input change event.
+   * Handles the change event on the file input element.
+   *
+   * @remarks
+   * Retrieves the selected file from the event and updates the component state. Also resets the upload flag.
+   *
+   * @param e - The change event from the file input.
+   * @returns {void}
    */
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0] || null;
     setFile(selectedFile);
+    setHasUploaded(false);
   };
 
   /**
-   * Handles the initial upload button click event.
-   * Validates if a file has been selected and then sets the phase to "detailed".
+   * Handles the click event on the upload button.
+   *
+   * @remarks
+   * Verifies that a file has been selected. If no file is selected, alerts the user.
+   * Otherwise, transitions the component to the "detailed" phase to trigger the upload process.
+   *
+   * @returns {void}
    */
   const handleInitialUploadClick = () => {
     if (!file) {
@@ -44,15 +54,19 @@ const UploadForm: React.FC = () => {
   };
 
   /**
-   * Side effect to upload the file when the phase is "detailed".
-   * 
-   * This effect runs when either the phase or the selected file changes.
-   * It constructs a FormData object, sends a POST request to the backend,
-   * and then handles the response to update download URL and filename.
+   * Effect hook to handle file upload when the component phase changes to "detailed".
+   *
+   * @remarks
+   * This effect defines an asynchronous function that constructs a FormData object with the selected file,
+   * sends it to the backend using a POST request, and processes the response. Depending on the response,
+   * it updates the download link state via the setDownloadLink function from the UploadFileContext.
+   * The effect ensures that the upload only occurs once per file selection by checking the hasUploaded flag.
+   *
+   * @returns {void} A cleanup function is not required in this effect.
    */
   useEffect(() => {
     const uploadFile = async (): Promise<void> => {
-      if (phase === "detailed" && file) {
+      if (phase === "detailed" && file && !hasUploaded) {
         try {
           const formData = new FormData();
           formData.append("file", file);
@@ -73,63 +87,54 @@ const UploadForm: React.FC = () => {
             data.no_fps ||
             data.already_in_sync
           ) {
-            setDownloadUrl("");
-            setDownloadFilename("");
+            setDownloadLink("", "");
           } else {
-            setDownloadUrl(
-              `${process.env.NEXT_PUBLIC_BACKEND_URL}${data.url}`
+            setDownloadLink(
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}${data.url}`,
+              data.filename
             );
-            setDownloadFilename(data.filename);
           }
+          setHasUploaded(true);
         } catch (error) {
           console.error("Upload error:", error);
-        } finally {
         }
       }
     };
     uploadFile();
-  }, [phase, file]);
+  }, [phase, file, hasUploaded, setDownloadLink]);
 
   if (phase === "initial") {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-darkblue">
-        <label
-          htmlFor="file-input"
-          className="px-8 py-4 bg-darkblue text-white text-xl rounded cursor-pointer"
-        >
-          Browse
-        </label>
-        <input
-          type="file"
-          id="file-input"
-          onChange={handleFileChange}
-          className="hidden"
-        />
-        <button
-          onClick={handleInitialUploadClick}
-          className="px-8 py-4 bg-darkblue text-white text-xl rounded"
-        >
-          Upload
-        </button>
+        <div className="flex flex-col space-y-4 w-full max-w-md">
+          <div className="p-8 bg-burntorange rounded shadow">
+            <label
+              htmlFor="file-input"
+              className="block text-white text-xl cursor-pointer text-center"
+            >
+              Browse
+            </label>
+            <input
+              type="file"
+              id="file-input"
+              onChange={handleFileChange}
+              className="hidden"
+            />
+          </div>
+          <div className="p-8 bg-burntorange rounded shadow">
+            <button
+              onClick={handleInitialUploadClick}
+              className="w-full text-white text-xl"
+            >
+              Upload
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
 
-  return (
-    <div className="flex items-center justify-center p-4 bg-darkblue">
-      <div className="w-full max-w-md mx-auto text-center">
-        {downloadUrl && (
-          <a
-            href={downloadUrl}
-            download={downloadFilename}
-            className="block bg-burntorange text-white text-xl font-bold py-3 rounded shadow hover:opacity-90"
-          >
-            Download
-          </a>
-        )}
-      </div>
-    </div>
-  );
+  return null;
 };
 
 export default UploadForm;

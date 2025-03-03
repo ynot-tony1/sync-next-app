@@ -1,5 +1,17 @@
+/**
+ * ProgressBar Component.
+ *
+ * @remarks
+ * Displays a visual progress bar based on the given percentage and an array of steps.
+ * Each step is rendered with a label and an indicator showing whether the step has been completed.
+ *
+ * @param {ProgressBarProps} props - The properties for the progress bar component.
+ * @param {number} props.progressPercent - The percentage of progress to display.
+ * @param {Array} props.steps - An array of step objects to display in the progress bar.
+ * @param {string[]} props.progressSteps - An array of step labels that have been completed.
+ * @returns {JSX.Element} The rendered progress bar.
+ */
 "use client";
-
 import React from "react";
 import { ProgressBarProps } from "types/progress-bar";
 
@@ -9,60 +21,28 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   progressSteps,
 }) => {
   return (
-    <div style={{ width: "100%", maxWidth: "600px" }}>
-      <div
-        style={{
-          backgroundColor: "#d9d9d9",
-          borderRadius: "15px",
-          overflow: "hidden",
-          height: "25px",
-          marginBottom: "40px",
-          width: "100%",
-        }}
-      >
+    <div className="w-full max-w-lg">
+      <div className="bg-gray-300 rounded-full overflow-hidden h-6 mb-10 w-full">
         <div
-          style={{
-            width: `${progressPercent}%`,
-            backgroundColor: "#bdb5b0",
-            height: "100%",
-            transition: "width 0.5s ease-in-out",
-          }}
+          className="bg-burntorange h-full transition-all duration-500 ease-in-out"
+          style={{ width: `${Math.min(progressPercent, 100)}%` }}
         />
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-        }}
-      >
+      <div className="flex flex-wrap justify-center">
         {steps.map((step) => {
           const stepDone = progressSteps.includes(step.label);
           return (
             <div
               key={step.id}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                margin: "5px 8px",
-                color: stepDone ? "#ba4a00" : "#777",
-                fontWeight: stepDone ? "bold" : "normal",
-              }}
+              className={`flex items-center m-2 text-sm ${
+                stepDone ? "text-burntorange font-bold" : "text-gray-500"
+              }`}
             >
               <span
-                style={{
-                  marginRight: "5px",
-                  display: "inline-block",
-                  width: "16px",
-                  height: "16px",
-                  borderRadius: "50%",
-                  backgroundColor: stepDone ? "#ba4a00" : "#ccc",
-                  textAlign: "center",
-                  color: "white",
-                  lineHeight: "16px",
-                  fontSize: "12px",
-                }}
+                className={`mr-2 flex items-center justify-center w-4 h-4 rounded-full ${
+                  stepDone ? "bg-burntorange text-white" : "bg-gray-400"
+                }`}
               >
                 {stepDone ? "✓" : ""}
               </span>
