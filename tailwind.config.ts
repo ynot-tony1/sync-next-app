@@ -9,9 +9,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        darkblue: "#1a5276",   // Darker blue background
-        creme: "#bdb5b0",      // Creme text color
-        burntorange: "#ba4a00",// Burnt orange for borders/buttons
+        darkblue: "#1a5276", // Darker blue background
+        creme: "#bdb5b0",    // Creme text color
+        burntorange: "#ba4a00", // Burnt orange for borders/buttons
       },
     },
   },

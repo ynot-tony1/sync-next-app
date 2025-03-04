@@ -3,6 +3,5 @@
 @tailwind utilities;
 
 body {
-  @apply bg-darkblue text-creme;
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-darkblue text-creme font-sans;
 }
