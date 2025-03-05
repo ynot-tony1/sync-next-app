@@ -20,7 +20,7 @@ import { useUploadFile } from "./UploadFileContext";
  */
 const UploadForm: React.FC = () => {
   // Component state management
-  const [phase, setPhase] = useState<"initial" | "detailed">("initial");
+  const [isProcessing, setIsProcessing] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [hasUploaded, setHasUploaded] = useState(false);
   const { setDownloadLink } = useUploadFile();
@@ -51,7 +51,7 @@ const UploadForm: React.FC = () => {
       alert("Please select a file first by clicking 'Browse'.");
       return;
     }
-    setPhase("detailed");
+    setIsProcessing(true);
   };
 
   /**
@@ -68,7 +68,7 @@ const UploadForm: React.FC = () => {
    */
   useEffect(() => {
     const uploadFile = async (): Promise<void> => {
-      if (phase === "detailed" && file && !hasUploaded) {
+      if (isProcessing && file && !hasUploaded) {
         try {
           const formData = new FormData();
           formData.append("file", file);
@@ -98,47 +98,46 @@ const UploadForm: React.FC = () => {
           }
           setHasUploaded(true);
         } catch (error) {
-          console.error("Upload error:", error);
+          console.error(`Upload error: ${JSON.stringify(error)}`);
         }
       }
     };
 
     uploadFile();
-  }, [phase, file, hasUploaded, setDownloadLink]);
+  }, [isProcessing, file, hasUploaded, setDownloadLink]);
 
-  if (phase === "initial") {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-darkblue">
-        <div className="flex flex-col space-y-4 w-full max-w-md">
-          <label
-            htmlFor="file-input"
-            className="cursor-pointer p-8 bg-burntorange rounded shadow"
-          >
-            <span className="block text-white text-xl text-center">
-              Browse
-            </span>
-            <input
-              type="file"
-              id="file-input"
-              onChange={handleFileChange}
-              className="hidden"
-            />
-          </label>
-          <div
-            role="button"
-            onClick={handleInitialUploadClick}
-            className="cursor-pointer p-8 bg-burntorange rounded shadow"
-          >
-            <span className="block text-white text-xl text-center">
-              Upload
-            </span>
-          </div>
+  if (isProcessing) {
+    return null
+  }
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-darkblue">
+      <div className="flex flex-col space-y-4 w-full max-w-md">
+        <label
+          htmlFor="file-input"
+          className="cursor-pointer p-8 bg-burntorange rounded shadow"
+        >
+          <span className="block text-white text-xl text-center">
+            Browse
+          </span>
+          <input
+            type="file"
+            id="file-input"
+            onChange={handleFileChange}
+            className="hidden"
+          />
+        </label>
+        <div
+          role="button"
+          onClick={handleInitialUploadClick}
+          className="cursor-pointer p-8 bg-burntorange rounded shadow"
+        >
+          <span className="block text-white text-xl text-center">
+            Upload
+          </span>
         </div>
       </div>
-    );
-  }
-
-  return null;
+    </div>
+  );
 };
 
 export default UploadForm;

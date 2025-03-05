@@ -15,7 +15,8 @@ import React from "react";
 import ProgressBar from "./ProgressBar";
 import SyncIcon from "./SyncIcon";
 import { useWebSocket } from "@/components/WebSocketContext";
-import { useUploadFile } from "@/components/UploadFileContext"; 
+import { useUploadFile } from "@/components/UploadFileContext";
+import { IndicatorState } from "@/types/web-socket-props";
 
 
 /**
@@ -26,11 +27,10 @@ import { useUploadFile } from "@/components/UploadFileContext";
  * It also retrieves the download URL and filename from the UploadFile context. Depending on the current indicator state, the component renders
  * a synchronization icon that may be wrapped in an anchor tag if a download link is available.
  */
-const ProcessVideoWebSocket: React.FC<{ visible: boolean }> = ({ visible }) => {
+const ProcessVideoWebSocket: React.FC = () => {
   const { message, progressSteps, indicatorState, progressPercent } = useWebSocket();
-  const { downloadUrl, downloadFilename } = useUploadFile(); 
+  const { downloadUrl, downloadFilename } = useUploadFile();
 
-  if (!visible) return null;
 
   return (
     <div className="flex flex-col items-center justify-start p-5 bg-darkblue text-creme font-sans">
@@ -40,7 +40,7 @@ const ProcessVideoWebSocket: React.FC<{ visible: boolean }> = ({ visible }) => {
       >
         {message}
       </div>
-      
+
       <ProgressBar
         progressPercent={progressSteps.length === 9 ? 100 : progressPercent}
         steps={progressSteps.map((step, index) => ({ id: (index + 1).toString(), label: step }))}
@@ -48,24 +48,44 @@ const ProcessVideoWebSocket: React.FC<{ visible: boolean }> = ({ visible }) => {
       />
 
       <div className="mt-12">
-        {indicatorState === "error" && (
-          <SyncIcon indicatorState="error" data-testid="sync-icon-error" />
-        )}
-        {indicatorState === "success" && downloadUrl ? (
-          <a href={downloadUrl} download={downloadFilename}>
-            <SyncIcon indicatorState="success" data-testid="sync-icon-success" />
-          </a>
-        ) : (
-          indicatorState === "success" && (
-            <SyncIcon indicatorState="success" data-testid="sync-icon-success" />
-          )
-        )}
-        {indicatorState === "syncing" && (
-          <SyncIcon indicatorState="syncing" data-testid="sync-icon-syncing" />
-        )}
+        <IndicatorIcon indicatorState={indicatorState} downloadUrl={downloadUrl} downloadFilename={downloadFilename} />
       </div>
     </div>
   );
 };
+
+const IndicatorIcon: React.FC<{ indicatorState: IndicatorState, downloadUrl: string, downloadFilename: string }> = ({ indicatorState, downloadUrl, downloadFilename }) => {
+
+  if (indicatorState === null) {
+    return <></>
+  }
+
+  if (indicatorState === "error") {
+    return <SyncIcon indicatorState="error" data-testid="sync-icon-error" />
+  }
+
+  if (indicatorState === "success") {
+
+    if (downloadUrl) {
+      return (
+      <a href={downloadUrl} download={downloadFilename}>
+        <SyncIcon indicatorState="success" data-testid="sync-icon-success" />
+      </a>
+      )
+    }
+
+    // Fallback
+    return <SyncIcon indicatorState="success" data-testid="sync-icon-success" />
+
+  }
+
+  if (indicatorState === "syncing") {
+    return <SyncIcon indicatorState="syncing" data-testid="sync-icon-syncing" />
+  }
+
+
+};
+
+
 
 export default ProcessVideoWebSocket;
