@@ -42,7 +42,7 @@ describe('ProcessVideoWebSocket - Download Link', () => {
     render(
       <WebSocketProvider>
         <UploadFileContext.Provider value={testContextValue}>
-          <ProcessVideoWebSocket visible={true} />
+          <ProcessVideoWebSocket  />
         </UploadFileContext.Provider>
       </WebSocketProvider>
     );

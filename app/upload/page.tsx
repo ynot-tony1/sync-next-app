@@ -33,7 +33,7 @@ export default function UploadPage() {
       <UploadFileProvider>
         <div className="text-center p-4">
           <UploadForm />
-          <ProcessVideoWebSocket visible={true} />
+          <ProcessVideoWebSocket />
         </div>
       </UploadFileProvider>
     </WebSocketProvider>

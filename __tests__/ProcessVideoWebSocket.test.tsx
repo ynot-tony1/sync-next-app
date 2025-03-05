@@ -46,7 +46,7 @@ describe('ProcessVideoWebSocket', () => {
     render(
       <WebSocketProvider>
         <UploadFileProvider>
-          <ProcessVideoWebSocket visible={true} />
+          <ProcessVideoWebSocket  />
         </UploadFileProvider>
       </WebSocketProvider>
     );
@@ -79,7 +79,7 @@ describe('ProcessVideoWebSocket', () => {
     render(
       <WebSocketProvider>
         <UploadFileProvider>
-          <ProcessVideoWebSocket visible={true} />
+          <ProcessVideoWebSocket  />
         </UploadFileProvider>
       </WebSocketProvider>
     );
@@ -109,7 +109,7 @@ describe('ProcessVideoWebSocket', () => {
     render(
       <WebSocketProvider>
         <UploadFileProvider>
-          <ProcessVideoWebSocket visible={true} />
+          <ProcessVideoWebSocket  />
         </UploadFileProvider>
       </WebSocketProvider>
     );
