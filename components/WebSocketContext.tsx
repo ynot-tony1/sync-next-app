@@ -7,25 +7,7 @@ import React, {
   useRef,
   ReactNode,
 } from "react";
-import { Step, IndicatorState } from "@/types/web-socket-props";
-
-/**
- * Interface defining the shape of the WebSocket context value.
- *
- * @interface WebSocketContextType
- * @property {string} message - The latest message received from the WebSocket.
- * @property {string[]} progressSteps - The list of progress step labels that have been reached.
- * @property {IndicatorState} indicatorState - The current indicator state ("error", "syncing", or "success").
- * @property {boolean} wsConnected - Whether the WebSocket connection is currently established.
- * @property {number} progressPercent - The overall progress percentage based on completed steps.
- */
-interface WebSocketContextType {
-  message: string;
-  progressSteps: string[];
-  indicatorState: IndicatorState;
-  wsConnected: boolean;
-  progressPercent: number;
-}
+import { Step, IndicatorState, WebSocketContextType } from "@/types/web-socket-props";
 
 /**
  * The React context for WebSocket state.
@@ -53,6 +35,10 @@ const IMPORTANT_STEPS: Step[] = [
   { id: "9", matchText: "orange", label: "Complete" },
 ];
 
+interface WebSocketProviderProps {
+  children: ReactNode;
+}
+
 /**
  * WebSocketProvider component that establishes and manages a WebSocket connection,
  * processes incoming messages, and provides state values via React context.
@@ -66,7 +52,7 @@ const IMPORTANT_STEPS: Step[] = [
  *   <MyComponent />
  * </WebSocketProvider>
  */
-export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
+export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }) => {
   const [message, setMessage] = useState("");
   const [progressSteps, setProgressSteps] = useState<string[]>([]);
   const [indicatorState, setIndicatorState] = useState<IndicatorState>(null);
@@ -118,7 +104,7 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
         } else {
           setIndicatorState("syncing");
         }
-        const matchedStep = IMPORTANT_STEPS.find(step =>
+        const matchedStep = IMPORTANT_STEPS.find((step: Step) =>
           nextMsg.toLowerCase().includes(step.matchText.toLowerCase())
         );
         if (matchedStep) {
@@ -138,7 +124,7 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
 
   const totalSteps = IMPORTANT_STEPS.length;
   const progressPercent = Math.min(100, Math.round((progressSteps.length / totalSteps) * 100));
-  const value = { message, progressSteps, indicatorState, wsConnected, progressPercent };
+  const value: WebSocketContextType = { message, progressSteps, indicatorState, wsConnected, progressPercent };
   return <WebSocketContext.Provider value={value}>{children}</WebSocketContext.Provider>;
 };
 

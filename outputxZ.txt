@@ -1,1247 +1,0 @@
-# Directory Structure (Depth 3) - Excluding node_modules
-.
-â”œâ”€â”€ app
-â”‚Â Â  â”œâ”€â”€ api
-â”‚Â Â  â”‚Â Â  â””â”€â”€ auth
-â”‚Â Â  â”œâ”€â”€ favicon.ico
-â”‚Â Â  â”œâ”€â”€ globals.css
-â”‚Â Â  â”œâ”€â”€ layout.tsx
-â”‚Â Â  â”œâ”€â”€ lib
-â”‚Â Â  â”‚Â Â  â””â”€â”€ authOptions.ts
-â”‚Â Â  â”œâ”€â”€ login
-â”‚Â Â  â”‚Â Â  â””â”€â”€ page.tsx
-â”‚Â Â  â”œâ”€â”€ page.tsx
-â”‚Â Â  â””â”€â”€ upload
-â”‚Â Â      â””â”€â”€ page.tsx
-â”œâ”€â”€ components
-â”‚Â Â  â”œâ”€â”€ HomePage.tsx
-â”‚Â Â  â”œâ”€â”€ LoginPage.tsx
-â”‚Â Â  â”œâ”€â”€ ProcessVideoWebSocket.tsx
-â”‚Â Â  â”œâ”€â”€ ProgressBar.tsx
-â”‚Â Â  â”œâ”€â”€ SyncIcon.tsx
-â”‚Â Â  â”œâ”€â”€ UploadFileContext.tsx
-â”‚Â Â  â”œâ”€â”€ UploadForm.tsx
-â”‚Â Â  â””â”€â”€ WebSocketContext.tsx
-â”œâ”€â”€ eslint.config.mjs
-â”œâ”€â”€ jest.config.js
-â”œâ”€â”€ jest.setup.js
-â”œâ”€â”€ next.config.ts
-â”œâ”€â”€ next-env.d.ts
-â”œâ”€â”€ outputxZ.txt
-â”œâ”€â”€ package.json
-â”œâ”€â”€ package-lock.json
-â”œâ”€â”€ postcss.config.js
-â”œâ”€â”€ public
-â”‚Â Â  â”œâ”€â”€ file.svg
-â”‚Â Â  â”œâ”€â”€ globe.svg
-â”‚Â Â  â”œâ”€â”€ next.svg
-â”‚Â Â  â”œâ”€â”€ vercel.svg
-â”‚Â Â  â””â”€â”€ window.svg
-â”œâ”€â”€ README.md
-â”œâ”€â”€ tailwind.config.ts
-â”œâ”€â”€ __tests__
-â”‚Â Â  â”œâ”€â”€ HomePage.test.tsx
-â”‚Â Â  â”œâ”€â”€ LoginPage.test.tsx
-â”‚Â Â  â”œâ”€â”€ ProcessVideoWebSocketDownload.test.tsx
-â”‚Â Â  â”œâ”€â”€ ProcessVideoWebSocket.test.tsx
-â”‚Â Â  â””â”€â”€ UploadForm.test.tsx
-â”œâ”€â”€ tsconfig.jest.json
-â”œâ”€â”€ tsconfig.json
-â””â”€â”€ types
-    â”œâ”€â”€ next-auth.d.ts
-    â”œâ”€â”€ progress-bar.d.ts
-    â”œâ”€â”€ sync-icon-props.d.ts
-    â”œâ”€â”€ upload-file.d.ts
-    â””â”€â”€ web-socket-props.d.ts
-
-10 directories, 43 files
-
-# Local Environment Variables
-NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
-NEXT_PUBLIC_AUTH_URL=http://localhost:8001
-NEXT_PUBLIC_APP_URL=http://localhost:8002
-NEXTAUTH_SECRET="supersecretkey"
-NEXTAUTH_JWT_ENCRYPTION=false
-NEXTAUTH_URL=http://localhost:3000
-
-# Next.js Configuration
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-}
-
-export default nextConfig;
-
-# Package Dependencies
-{
-  "name": "syncnet-upload",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "test": "jest"
-  },
-  "dependencies": {
-    "bcrypt": "^5.1.1",
-    "jsonwebtoken": "^9.0.2",
-    "next": "15.1.5",
-    "next-auth": "^4.24.11",
-    "react": "19.0.0",
-    "react-dom": "19.0.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.26.7",
-    "@babel/preset-env": "^7.26.7",
-    "@babel/preset-react": "^7.26.3",
-    "@babel/preset-typescript": "^7.26.0",
-    "@eslint/eslintrc": "3.2.0",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.2.0",
-    "@testing-library/user-event": "^14.6.1",
-    "@types/jest": "^29.5.14",
-    "@types/jsonwebtoken": "^9.0.8",
-    "@types/node": "20.17.14",
-    "@types/react": "19.0.7",
-    "@types/react-dom": "19.0.3",
-    "autoprefixer": "10.4.20",
-    "babel-jest": "^29.7.0",
-    "eslint": "9.18.0",
-    "eslint-config-next": "15.1.2",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
-    "postcss": "8.5.1",
-    "react-test-renderer": "^19.0.0",
-    "tailwindcss": "3.4.17",
-    "ts-jest": "^29.2.5",
-    "typescript": "5.7.3"
-  }
-}
-
-# TypeScript Configuration
-{
-  "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./*"]
-    },
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "types": ["jest", "node","@testing-library/jest-dom"]
-  },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "next-env.d.ts",
-    ".next/types/**/*.ts",
-    "jest.config.ts",
-    "jest.setup.js",
-    "types/**/*.d.ts",
-    "__tests__/**/*"
-  ],
-  "exclude": ["node_modules"]
-}
-
-# PostCSS Configuration
-module.exports = {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-};
-
-# Tailwind CSS Configuration
-import type { Config } from "tailwindcss";
-
-export default {
-  content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
-  theme: {
-    extend: {
-      colors: {
-        darkblue: "#1a5276", // Darker blue background
-        creme: "#bdb5b0",    // Creme text color
-        burntorange: "#ba4a00", // Burnt orange for borders/buttons
-      },
-    },
-  },
-  plugins: [],
-} satisfies Config;
-
-# Upload Page Component (Next.js)
-/**
- * UploadPage Component.
- *
- * @remarks
- * This component serves as the main upload page for the application. It renders both the file upload form
- * and the video processing progress display. The page is wrapped by two context providers:
- *
- * - WebSocketProvider: Supplies real-time updates from the backend via a WebSocket connection, including processing
- *   messages, milestones, and progress data.
- *
- * - UploadFileProvider: Manages and shares the download state (download URL and filename) across the application.
- *
- * The wrapping ensures that both the UploadForm and ProcessVideoWebSocket components have access to the shared
- * download link state. The UploadForm handles file selection and triggers the upload process, while the
- * ProcessVideoWebSocket component displays processing status and, upon a successful upload, renders a clickable
- * download link based on the shared state.
- *
- * @returns {JSX.Element} The rendered UploadPage component.
- *
- * @example
- * <UploadPage />
- */
-"use client";
-import React from "react";
-import UploadForm from "@/components/UploadForm";
-import ProcessVideoWebSocket from "@/components/ProcessVideoWebSocket";
-import { WebSocketProvider } from "@/components/WebSocketContext";
-import { UploadFileProvider } from "@/components/UploadFileContext";
-
-export default function UploadPage() {
-  return (
-    <WebSocketProvider>
-      <UploadFileProvider>
-        <div className="text-center p-4">
-          <UploadForm />
-          <ProcessVideoWebSocket visible={true} />
-        </div>
-      </UploadFileProvider>
-    </WebSocketProvider>
-  );
-}
-
-# Components
-## EmailButton Component
-[components/EmailButton.tsx not found]
-
-## HomePage Component
-"use client";
-
-import React from "react";
-import { signOut, useSession } from "next-auth/react";
-import Link from "next/link";
-
-/**
- * A React functional component that serves as the main landing page for authenticated users.
- *
- * @remarks
- * This component uses NextAuth's `useSession` hook to obtain the current session data. If no session is present,
- * it displays a message indicating that the user is not logged in and provides a link to the login page.
- * When a session is active, it shows a welcome message with the user's email, a link to the upload page,
- * and a logout button that triggers NextAuth's `signOut` function.
- *
- * @returns The rendered HomePage component.
- */
-const HomePage: React.FC = () => {
-  const { data: session } = useSession();
-
-  if (!session) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-darkblue">
-        <p className="mb-4 text-lg text-creme">Youâ€™re not logged in</p>
-        <Link href="/login" className="text-blue-500 hover:underline text-lg">
-          Go to Login
-        </Link>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen flex flex-col bg-darkblue text-creme">
-      <div className="flex-grow flex flex-col items-center justify-center">
-        <h1 className="text-5xl font-bold mb-8">
-          Welcome, {session.user?.email}!
-        </h1>
-        <Link
-          href="/upload"
-          className="px-12 py-8 bg-burntorange text-white text-3xl font-bold rounded shadow hover:opacity-90 mb-8"
-        >
-          Upload
-        </Link>
-      </div>
-
-      <div className="p-4 flex justify-center">
-        <button
-          onClick={() => signOut({ callbackUrl: "/login" })}
-          className="px-6 py-3 bg-burntorange text-white rounded shadow"
-        >
-          Logout
-        </button>
-      </div>
-    </div>
-  );
-};
-
-export default HomePage;
-
-## LoginPage Component
-"use client";
-
-import React, { useState } from "react";
-import { signIn } from "next-auth/react";
-
-/**
- * A React functional component that provides a form for user authentication,
- * supporting both login and registration modes.
- *
- * @remarks
- * The component initially renders in login mode, but allows users to toggle to registration mode.
- * In registration mode, it submits a POST request to the Auth Service's `/register` endpoint with the provided email and password.
- * Upon successful registration, an access token is retrieved and used to create a user record via the App Service's `/user` endpoint,
- * and the user is logged in using NextAuth's `signIn` function.
- * In login mode, the form directly invokes NextAuth's `signIn` function with the entered credentials.
- *
- * @returns The rendered LoginPage component.
- */
-
-
-  /**
-   * Handles user login by invoking NextAuth's `signIn` function.
-   *
-   * @remarks
-   * This function prevents the default form submission behavior and calls NextAuth's `signIn` function
-   * with the provided email and password to authenticate the user.
-   *
-   * @param e The form submission event.
-   */
-  const LoginPage: React.FC = () => {
-    const [isRegister, setIsRegister] = useState(false);
-    const [userEmail, setUserEmail] = useState("");
-    const [userPassword, setUserPassword] = useState("");
-  
-    /**
-     * Handles user registration by sending the registration request and logging in upon success.
-     *
-     * @param e The form submission event.
-     */
-    const handleRegister = async (e: React.FormEvent) => {
-      e.preventDefault();
-      const authRes = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: userEmail, password: userPassword }),
-      });
-      
-      if (!authRes.ok) {
-        alert("Registration failed at Auth Service");
-        return;
-      }
-  
-      const authData = await authRes.json();
-      const token = authData.access_token;
-      
-      const userRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/user`, {  
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-        },
-      });
-      
-      if (!userRes.ok) {
-        alert("User creation failed");
-        return;
-      }
-      
-      await signIn("credentials", {
-        redirect: true,
-        callbackUrl: "/",
-        email: userEmail,
-        password: userPassword,
-      });
-    };
-  
-    /**
-     * Handles user login by invoking NextAuth's signIn function.
-     *
-     * @param e The form submission event.
-     */
-    const handleLogin = async (e: React.FormEvent) => {
-      e.preventDefault(); 
-      await signIn("credentials", {
-        redirect: true,
-        callbackUrl: "/",
-        email: userEmail,
-        password: userPassword,
-      });
-    };
-  
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-darkblue">
-        <h1 className="text-2xl font-bold mb-6 text-creme">
-          {isRegister ? "Register" : "Login"}
-        </h1>
-        <form
-          onSubmit={isRegister ? handleRegister : handleLogin}
-          className="flex flex-col w-full max-w-sm space-y-4"
-        >
-          <input
-            type="email"
-            placeholder="Email"
-            value={userEmail}
-            onChange={(e) => setUserEmail(e.target.value)}
-            required
-            className="border rounded p-2 focus:outline-none focus:ring-2 focus:ring-burntorange"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={userPassword}
-            onChange={(e) => setUserPassword(e.target.value)}
-            required
-            className="border rounded p-2 focus:outline-none focus:ring-2 focus:ring-burntorange"
-          />
-          <button
-            type="submit"
-            className="px-4 py-2 rounded transition-colors bg-burntorange text-white"
-          >
-            {isRegister ? "Register" : "Login"}
-          </button>
-        </form>
-        <button
-          onClick={() => setIsRegister(!isRegister)}
-          className="mt-4 hover:underline text-creme"
-        >
-          Switch to {isRegister ? "Login" : "Register"}
-        </button>
-      </div>
-    );
-  };
-  
-  export default LoginPage;
-
-
-  
-## ProcessVideoWebSocket Component
-/**
- * ProcessVideoWebSocket Component.
- *
- * @remarks
- * Renders a progress display for video processing that includes a progress bar and a sync indicator.
- * The component uses the WebSocket context to retrieve processing messages and milestones, and the
- * UploadFile context to obtain the download link when processing is successful.
- *
- * @param {Object} props - The component properties.
- * @param {boolean} props.visible - A flag indicating whether the component should be rendered.
- * @returns {JSX.Element | null} The rendered component if visible; otherwise, null.
- */
-"use client";
-import React from "react";
-import ProgressBar from "./ProgressBar";
-import SyncIcon from "./SyncIcon";
-import { useWebSocket } from "@/components/WebSocketContext";
-import { useUploadFile } from "@/components/UploadFileContext"; 
-
-
-/**
- * Functional component that displays the video processing status.
- *
- * @remarks
- * The component retrieves the current message, processing milestones, indicator state, and progress percentage from the WebSocket context.
- * It also retrieves the download URL and filename from the UploadFile context. Depending on the current indicator state, the component renders
- * a synchronization icon that may be wrapped in an anchor tag if a download link is available.
- */
-const ProcessVideoWebSocket: React.FC<{ visible: boolean }> = ({ visible }) => {
-  const { message, progressSteps, indicatorState, progressPercent } = useWebSocket();
-  const { downloadUrl, downloadFilename } = useUploadFile(); 
-
-  if (!visible) return null;
-
-  return (
-    <div className="flex flex-col items-center justify-start p-5 bg-darkblue text-creme font-sans">
-      <div
-        data-testid="message-container"
-        className="text-2xl my-5 min-h-[3rem] font-bold text-center"
-      >
-        {message}
-      </div>
-      
-      <ProgressBar
-        progressPercent={progressSteps.length === 9 ? 100 : progressPercent}
-        steps={progressSteps.map((step, index) => ({ id: (index + 1).toString(), label: step }))}
-        progressSteps={progressSteps}
-      />
-
-      <div className="mt-12">
-        {indicatorState === "error" && (
-          <SyncIcon indicatorState="error" data-testid="sync-icon-error" />
-        )}
-        {indicatorState === "success" && downloadUrl ? (
-          <a href={downloadUrl} download={downloadFilename}>
-            <SyncIcon indicatorState="success" data-testid="sync-icon-success" />
-          </a>
-        ) : (
-          indicatorState === "success" && (
-            <SyncIcon indicatorState="success" data-testid="sync-icon-success" />
-          )
-        )}
-        {indicatorState === "syncing" && (
-          <SyncIcon indicatorState="syncing" data-testid="sync-icon-syncing" />
-        )}
-      </div>
-    </div>
-  );
-};
-
-export default ProcessVideoWebSocket;
-
-## ProgressBar Component
-/**
- * ProgressBar Component.
- *
- * @remarks
- * Displays a visual progress bar based on the given percentage and an array of steps.
- * Each step is rendered with a label and an indicator showing whether the step has been completed.
- *
- * @param {ProgressBarProps} props - The properties for the progress bar component.
- * @param {number} props.progressPercent - The percentage of progress to display.
- * @param {Array} props.steps - An array of step objects to display in the progress bar.
- * @param {string[]} props.progressSteps - An array of step labels that have been completed.
- * @returns {JSX.Element} The rendered progress bar.
- */
-"use client";
-import React from "react";
-import { ProgressBarProps } from "types/progress-bar";
-
-const ProgressBar: React.FC<ProgressBarProps> = ({
-  progressPercent,
-  steps = [],
-  progressSteps,
-}) => {
-  return (
-    <div className="w-full max-w-lg">
-      <div className="bg-gray-300 rounded-full overflow-hidden h-6 mb-10 w-full">
-        <div
-          className="bg-burntorange h-full transition-all duration-500 ease-in-out"
-          style={{ width: `${Math.min(progressPercent, 100)}%` }}
-        />
-      </div>
-
-      <div className="flex flex-wrap justify-center">
-        {steps.map((step) => {
-          const stepDone = progressSteps.includes(step.label);
-          return (
-            <div
-              key={step.id}
-              className={`flex items-center m-2 text-sm ${
-                stepDone ? "text-burntorange font-bold" : "text-gray-500"
-              }`}
-            >
-              <span
-                className={`mr-2 flex items-center justify-center w-4 h-4 rounded-full ${
-                  stepDone ? "bg-burntorange text-white" : "bg-gray-400"
-                }`}
-              >
-                {stepDone ? "âœ“" : ""}
-              </span>
-              {step.label}
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
-
-export default ProgressBar;
-
-## SyncIcon Component
-/**
- * @module SyncIcon
- * @description Renders a visual indicator for sync status including error, success, and a circular spinner for syncing.
- */
-
-import React from "react";
-import { SyncIconProps } from "types/sync-icon-props";
-
-/**
- * Filters out the "jsx" property from a props object.
- *
- * @param props - The props object to filter.
- * @returns A new object without the "jsx" property.
- */
-const filterProps = (props: Record<string, unknown>): Record<string, unknown> => {
-  const { jsx: _jsx, ...filtered } = props;
-  return filtered;
-};
-
-/**
- * SyncIcon Component.
- *
- * Renders an indicator based on the provided sync status.
- *
- * @param indicatorState - The current sync status ("error", "success", or "syncing").
- * @param props - Additional properties to pass to the root element.
- * @returns A JSX element representing the sync indicator.
- */
-const SyncIcon: React.FC<SyncIconProps> = ({ indicatorState, ...props }) => {
-  const safeProps = filterProps(props);
-
-  if (indicatorState === "error") {
-    return (
-      <div
-        {...safeProps}
-        style={{
-          width: "60px",
-          height: "60px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: "2rem",
-          fontWeight: "bold",
-          color: "white",
-          borderRadius: "50%",
-          backgroundColor: "#ba4a00",
-        }}
-      >
-        X
-      </div>
-    );
-  } else if (indicatorState === "success") {
-    return (
-      <div
-        {...safeProps}
-        style={{
-          width: "60px",
-          height: "60px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: "2rem",
-          fontWeight: "bold",
-          color: "white",
-          borderRadius: "50%",
-          backgroundColor: "#ba4a00",
-        }}
-      >
-        âœ“
-      </div>
-    );
-  } else if (indicatorState === "syncing") {
-    return (
-      <>
-        <div {...safeProps} className="spinner-container">
-          <div className="spinner" />
-        </div>
-        <style jsx>{`
-          .spinner-container {
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            box-sizing: border-box;
-          }
-          .spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-top: 4px solid #ba4a00; /* Burnt orange */
-            border-radius: 50%;
-            box-sizing: border-box;
-            animation: spin 1s linear infinite;
-          }
-          @keyframes spin {
-            0% {
-              transform: rotate(0deg);
-            }
-            100% {
-              transform: rotate(360deg);
-            }
-          }
-        `}</style>
-      </>
-    );
-  }
-  return null;
-};
-
-export default SyncIcon;
-## UploadForm Component
-"use client";
-import React, { useState, useEffect } from "react";
-import { useUploadFile } from "./UploadFileContext";
-
-/**
- * UploadForm Component.
- *
- * @remarks
- * This component renders a file upload form that allows users to select a file (via a "Browse" box)
- * and initiate an upload (via an "Upload" box). The component maintains two phases:
- * - "initial": Renders the file input and upload button.
- * - "detailed": Initiates the file upload process.
- *
- * In the "detailed" phase, the file is sent to a backend endpoint using a POST request.
- * The component uses the UploadFileContext to update the download link once the upload is complete.
- *
- * Tailwind classes are applied to ensure that the entire boxes (for both "Browse" and "Upload") are clickable.
- *
- * @returns {JSX.Element | null} The rendered upload form during the "initial" phase, or null otherwise.
- */
-const UploadForm: React.FC = () => {
-  // Component state management
-  const [phase, setPhase] = useState<"initial" | "detailed">("initial");
-  const [file, setFile] = useState<File | null>(null);
-  const [hasUploaded, setHasUploaded] = useState(false);
-  const { setDownloadLink } = useUploadFile();
-
-  /**
-   * Handles changes to the file input.
-   *
-   * @remarks
-   * When a user selects a file, this handler updates the state with the selected file and resets the upload flag.
-   *
-   * @param {React.ChangeEvent<HTMLInputElement>} e - The change event triggered by the file input.
-   */
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0] || null;
-    setFile(selectedFile);
-    setHasUploaded(false);
-  };
-
-  /**
-   * Handles the click event on the upload box.
-   *
-   * @remarks
-   * Verifies that a file has been selected. If not, it alerts the user.
-   * If a file is selected, the component phase is changed to "detailed" to trigger the file upload process.
-   */
-  const handleInitialUploadClick = () => {
-    if (!file) {
-      alert("Please select a file first by clicking 'Browse'.");
-      return;
-    }
-    setPhase("detailed");
-  };
-
-  /**
-   * Effect hook that initiates the file upload process when the component phase changes to "detailed".
-   *
-   * @remarks
-   * The effect defines an asynchronous function that:
-   * - Constructs a FormData object with the selected file.
-   * - Sends the file to the backend using a POST request.
-   * - Parses the response and updates the download link via the UploadFileContext.
-   * - Handles error scenarios by logging to the console.
-   *
-   * The effect is re-triggered whenever the phase, file, hasUploaded flag, or setDownloadLink function changes.
-   */
-  useEffect(() => {
-    const uploadFile = async (): Promise<void> => {
-      if (phase === "detailed" && file && !hasUploaded) {
-        try {
-          const formData = new FormData();
-          formData.append("file", file);
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/process`,
-            {
-              method: "POST",
-              body: formData,
-            }
-          );
-          if (!response.ok) {
-            throw new Error("Failed to upload file.");
-          }
-          const data = await response.json();
-          if (
-            data.no_audio ||
-            data.no_video ||
-            data.no_fps ||
-            data.already_in_sync
-          ) {
-            setDownloadLink("", "");
-          } else {
-            setDownloadLink(
-              `${process.env.NEXT_PUBLIC_BACKEND_URL}${data.url}`,
-              data.filename
-            );
-          }
-          setHasUploaded(true);
-        } catch (error) {
-          console.error("Upload error:", error);
-        }
-      }
-    };
-
-    uploadFile();
-  }, [phase, file, hasUploaded, setDownloadLink]);
-
-  if (phase === "initial") {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-darkblue">
-        <div className="flex flex-col space-y-4 w-full max-w-md">
-          <label
-            htmlFor="file-input"
-            className="cursor-pointer p-8 bg-burntorange rounded shadow"
-          >
-            <span className="block text-white text-xl text-center">
-              Browse
-            </span>
-            <input
-              type="file"
-              id="file-input"
-              onChange={handleFileChange}
-              className="hidden"
-            />
-          </label>
-          <div
-            role="button"
-            onClick={handleInitialUploadClick}
-            className="cursor-pointer p-8 bg-burntorange rounded shadow"
-          >
-            <span className="block text-white text-xl text-center">
-              Upload
-            </span>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  return null;
-};
-
-export default UploadForm;
-
-## WebSocketContext Component
-"use client";
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  useRef,
-  ReactNode,
-} from "react";
-import { Step, IndicatorState } from "@/types/web-socket-props";
-
-/**
- * Interface defining the shape of the WebSocket context value.
- *
- * @interface WebSocketContextType
- * @property {string} message - The latest message received from the WebSocket.
- * @property {string[]} progressSteps - The list of progress step labels that have been reached.
- * @property {IndicatorState} indicatorState - The current indicator state ("error", "syncing", or "success").
- * @property {boolean} wsConnected - Whether the WebSocket connection is currently established.
- * @property {number} progressPercent - The overall progress percentage based on completed steps.
- */
-interface WebSocketContextType {
-  message: string;
-  progressSteps: string[];
-  indicatorState: IndicatorState;
-  wsConnected: boolean;
-  progressPercent: number;
-}
-
-/**
- * The React context for WebSocket state.
- *
- * @constant
- * @type {React.Context<WebSocketContextType | undefined>}
- */
-const WebSocketContext = createContext<WebSocketContextType | undefined>(undefined);
-
-/**
- * An array of important progress steps that are used to parse incoming messages.
- *
- * @constant
- * @type {Step[]}
- */
-const IMPORTANT_STEPS: Step[] = [
-  { id: "1", matchText: "Here we go", label: "Initiate" },
-  { id: "2", matchText: "Setting up our filing system", label: "File Setup" },
-  { id: "3", matchText: "Copying your file to work on", label: "Copy" },
-  { id: "4", matchText: "Finding out about your file", label: "Inspect" },
-  { id: "5", matchText: "Ok, had a look", label: "Analyze" },
-  { id: "6", matchText: "Pass number", label: "Sync Passses" },
-  { id: "7", matchText: "Adjusting the streams in your file", label: "Adjust" },
-  { id: "8", matchText: "Making the final shift", label: "Final Shift" },
-  { id: "9", matchText: "orange", label: "Complete" },
-];
-
-/**
- * WebSocketProvider component that establishes and manages a WebSocket connection,
- * processes incoming messages, and provides state values via React context.
- *
- * @param {Object} props - Component props.
- * @param {ReactNode} props.children - The child components that require access to WebSocket context.
- * @returns {JSX.Element} A provider component that supplies WebSocket state to its children.
- *
- * @example
- * <WebSocketProvider>
- *   <MyComponent />
- * </WebSocketProvider>
- */
-export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
-  const [message, setMessage] = useState("");
-  const [progressSteps, setProgressSteps] = useState<string[]>([]);
-  const [indicatorState, setIndicatorState] = useState<IndicatorState>(null);
-  const [wsConnected, setWsConnected] = useState(false);
-  const wsRef = useRef<WebSocket | null>(null);
-  const messageQueue = useRef<string[]>([]);
-
-  useEffect(() => {
-    /**
-     * Establishes a new WebSocket connection and sets up its event handlers.
-     */
-    const connectWS = () => {
-      const ws = new WebSocket("ws://localhost:8000/ws");
-      ws.onopen = () => setWsConnected(true);
-      ws.onmessage = (e: MessageEvent<string>) => {
-        messageQueue.current.push(e.data);
-      };
-      ws.onclose = () => {
-        setWsConnected(false);
-        setTimeout(connectWS, 5000);
-      };
-      ws.onerror = (e: Event) => {
-        console.error("WS error:", e);
-        ws.close();
-      };
-      wsRef.current = ws;
-    };
-    const timeout = setTimeout(connectWS, 1000);
-    return () => {
-      clearTimeout(timeout);
-      wsRef.current?.close();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!wsConnected) return;
-    /**
-     * Interval for processing queued WebSocket messages.
-     */
-    const intervalId = window.setInterval(() => {
-      if (messageQueue.current.length) {
-        const nextMsg = messageQueue.current.shift() || "";
-        setMessage(nextMsg);
-        if (/(no video|couldn'?t find any video stream|no audio|error|aborting process)/i.test(nextMsg)) {
-          setIndicatorState("error");
-          messageQueue.current = [];
-        } else if (/(already\s+in\s+sync|already\s+synchronized|get your file|our clip is already in sync)/i.test(nextMsg)) {
-          setIndicatorState("success");
-        } else {
-          setIndicatorState("syncing");
-        }
-        const matchedStep = IMPORTANT_STEPS.find(step =>
-          nextMsg.toLowerCase().includes(step.matchText.toLowerCase())
-        );
-        if (matchedStep) {
-          setProgressSteps(prev => {
-            if (!prev.includes(matchedStep.label)) {
-              return [...prev, matchedStep.label];
-            }
-            return prev;
-          });
-        }
-      }
-    }, 500);
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [wsConnected]);
-
-  const totalSteps = IMPORTANT_STEPS.length;
-  const progressPercent = Math.min(100, Math.round((progressSteps.length / totalSteps) * 100));
-  const value = { message, progressSteps, indicatorState, wsConnected, progressPercent };
-  return <WebSocketContext.Provider value={value}>{children}</WebSocketContext.Provider>;
-};
-
-/**
- * Hook that provides access to the WebSocket context.
- *
- * @throws Will throw an error if used outside of a WebSocketProvider.
- * @returns {WebSocketContextType} The current WebSocket context value.
- *
- * @example
- * const { message, progressSteps } = useWebSocket();
- */
-export const useWebSocket = () => {
-  const context = useContext(WebSocketContext);
-  if (!context) {
-    throw new Error("useWebSocket must be used within a WebSocketProvider");
-  }
-  return context;
-};
-
-# App Directory (All Files Recursively)
-### app/globals.css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-body {
-  @apply bg-darkblue text-creme font-sans;
-}
-
-### app/lib/authOptions.ts
-import { AuthOptions } from "next-auth";
-import jwt from "jsonwebtoken";
-import CredentialsProvider from "next-auth/providers/credentials";
-import type { JWT } from "next-auth/jwt";
-
-/**
- * Retrieves the NextAuth secret from environment variables.
- *
- * @remarks
- * The non-null assertion (`!`) is here ot make sure that `NEXTAUTH_SECRET` is defined.
- * If the secret's missing, itl throw a run time error.
- */
-const secret = process.env.NEXTAUTH_SECRET!;
-
-/**
- * NextAuth config object.
- *
- * @remarks
- * This config sets up NextAuth with a credentials provider for handling user authentication.
- * Defines custom endpoints, session strategies and callback functions for managing JWTs and sessions.
- *
- * @property secret - Secret key for signing and verifying JWT tokens.
- * @property providers - Array of authentication providers.
- * @property pages - Custom NextAuth page routes.
- * @property session - Session strategy config.
- * @property callbacks - Callback functions to extend NextAuth's functionality.
- */
-export const authOptions: AuthOptions = {
-  secret,
-
-  providers: [
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        email: { label: "Email", type: "email", placeholder: "tony@syncitty-split.com" },
-        password: { label: "Password", type: "password" },
-      },
-      /**
-       * Authenticates a user by verifying their credentials from the external auth service.
-       *
-       * @param credentials - The user's credentials, email and password.
-       * @param _req - The incoming request object. 
-       * It's not actually used in this function but it is required to be there by NextAuth's implementation. 
-       * 
-       * @returns An object containing the user's id and email if it is sucessful, otherwise it returns null.
-       *
-       * @remarks
-       * Function first validates that both email and password are provided.
-       * Then sends a POST request to the external auth endpoint '/login'.
-       * If the response is successful and has an access_token in it, the token is checked using the secret.
-       * After being verified successfully, a user object comes back. Otherwise, `null` is returned.
-       */
-      async authorize(credentials, _req) {
-        if (!credentials?.email || !credentials?.password) {
-          return null;
-        }
-
-        const res = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/login`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: credentials.email,
-            password: credentials.password,
-          }),
-        });
-
-        const authData = await res.json();
-
-        if (res.ok && authData.access_token) {
-          try {
-            const decoded = jwt.verify(authData.access_token, secret) as JWT;
-            return { id: decoded.sub, email: decoded.email };
-          } catch (error) {
-            console.error("JWT verification failed", error);
-            return null;
-          }
-        }
-        return null;
-      },
-    }),
-  ],
-
-  pages: { signIn: "/login" },
-
-  session: { strategy: "jwt",    maxAge: 300 },  jwt: {
-    maxAge: 300,
-  },
-
-  callbacks: {
-    /**
-     * Changes the JWT token during sign-in or if the token needs to be edited during a session.
-     *
-     * @param token - The current JWT token.
-     * @param user - The user object returned from the authorize function which is there on initial sign-in.
-     * @returns The modified JWT token with the user id and email encoded in it. If no user is provided 
-     * then the token is returned unchanged.
-     *
-     * @remarks
-     * If a user object is provided like on the first sign-in, this callback maps the user's id and email
-     * into the token with the id stored under `sub`. This makes sure that the token keeps the user information.
-     */
-    jwt: ({ token, user }) => {
-      if (user) {
-        token.sub = user.id;
-        token.email = user.email || null;
-      }
-      return token;
-    },
-
-    /**
-     * Creates the session object which is returned to the client.
-     *
-     * @param session - The session object that will be sent to the client.
-     * @param token - The JWT token that is created by the jwt callback.
-     * @returns The updated session object containing a user object with id and email.
-     *
-     * @remarks
-     * This extracts the user information from the JWT and attaches it to the session object.
-     * The resulting session, which includes the user's id and email is then made available on the client side.
-     */
-    session: ({ session, token }) => {
-      session.user = { id: token.sub || "", email: token.email || null };
-      return session;
-    },
-  },
-};
-
-### app/page.tsx
-"use client";
-
-import HomePage from "../components/HomePage";
-
-export default function Page() {
-  return <HomePage />;
-}
- 
-### app/upload/page.tsx
-/**
- * UploadPage Component.
- *
- * @remarks
- * This component serves as the main upload page for the application. It renders both the file upload form
- * and the video processing progress display. The page is wrapped by two context providers:
- *
- * - WebSocketProvider: Supplies real-time updates from the backend via a WebSocket connection, including processing
- *   messages, milestones, and progress data.
- *
- * - UploadFileProvider: Manages and shares the download state (download URL and filename) across the application.
- *
- * The wrapping ensures that both the UploadForm and ProcessVideoWebSocket components have access to the shared
- * download link state. The UploadForm handles file selection and triggers the upload process, while the
- * ProcessVideoWebSocket component displays processing status and, upon a successful upload, renders a clickable
- * download link based on the shared state.
- *
- * @returns {JSX.Element} The rendered UploadPage component.
- *
- * @example
- * <UploadPage />
- */
-"use client";
-import React from "react";
-import UploadForm from "@/components/UploadForm";
-import ProcessVideoWebSocket from "@/components/ProcessVideoWebSocket";
-import { WebSocketProvider } from "@/components/WebSocketContext";
-import { UploadFileProvider } from "@/components/UploadFileContext";
-
-export default function UploadPage() {
-  return (
-    <WebSocketProvider>
-      <UploadFileProvider>
-        <div className="text-center p-4">
-          <UploadForm />
-          <ProcessVideoWebSocket visible={true} />
-        </div>
-      </UploadFileProvider>
-    </WebSocketProvider>
-  );
-}
-
-### app/login/page.tsx
-import LoginPage from "@/components/LoginPage";
-
-export default function Login() {
-  return <LoginPage />;
-}
-
-### app/favicon.ico
-         (  F          (  n  00     (-  –           ¾F  (                                                           $   ]   º   º   ]   $                                           ò   ÿ   ÿ   ÿ   ÿ   ò                               8   à   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   à   8                  â   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   â              ¡   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ¡       #   ô   ÿ   ÿOOOÿ®®®ÿ«««ÿ«««ÿ«««ÿ«««ÿ­­­ÿgggÿ   ÿ   ÿ   ô   #   Y   ÿ   ÿ   ÿÿíííÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿıııÿ555ÿ   ÿ   ÿ   ÿ   Y   »   ÿ   ÿ   ÿ   ÿkkkÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ   ÿ   ÿ   ÿ   ÿ   »   »   ÿ   ÿ   ÿ   ÿ			ÿÍÍÍÿÿÿÿÿÿÿÿÿäääÿÿ   ÿ   ÿ   ÿ   ÿ   »   Y   ÿ   ÿ   ÿ   ÿ   ÿJJJÿıııÿÿÿÿÿkkkÿ   ÿ   ÿ   ÿ   ÿ   ÿ   Y   #   ô   ÿ   ÿ   ÿ   ÿÿ¶¶¶ÿÕÕÕÿ			ÿ   ÿ   ÿ   ÿ   ÿ   ô   #       ¡   ÿ   ÿ   ÿ   ÿ   ÿ111ÿDDDÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ¡              â   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   â                  8   à   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   à   8                               ò   ÿ   ÿ   ÿ   ÿ   ò                                           $   ]   º   º   ]   $                                                                                                                                                                                                                                                                                    (       @                                                                               ,   U      è   è      U   ,                                                                                      *   …   Ò   ù   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ù   Ò   …   *                                                                      –   ó   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ó   –                                                          Q   á   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   á   Q                                               r   û   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   û   r                                       r   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   r                               O   û   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   û   O                          ä   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ã                      —   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   —               (   õ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ô   '           †   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ888ÿ‹‹‹ÿˆˆˆÿˆˆˆÿˆˆˆÿˆˆˆÿˆˆˆÿˆˆˆÿˆˆˆÿˆˆˆÿˆˆˆÿˆˆˆÿˆˆˆÿˆˆˆÿ‰‰‰ÿ___ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   †          Ô   ÿ   ÿ   ÿ   ÿ   ÿ   ÿÿîîîÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿSSSÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   Ô      +   ú   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿhhhÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ®®®ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ú   +   T   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿÿËËËÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿôôôÿ,,,ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   T   ‚   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿGGGÿıııÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ      é   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ­­­ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿäääÿÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   é   é   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ+++ÿóóóÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿjjjÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   é      ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ‹‹‹ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÌÌÌÿÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ‚   T   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿÿãããÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿıııÿIIIÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   T   +   ú   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿhhhÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ¯¯¯ÿÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ú   +      Ô   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿÿËËËÿÿÿÿÿÿÿÿÿôôôÿ,,,ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   Ô          †   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿGGGÿıııÿÿÿÿÿÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   †           '   ô   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ±±±ÿìììÿÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   õ   (               —   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ333ÿ___ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   —                      ã   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ä                          O   û   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   û   O                               r   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   r                                       r   û   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   û   r                                               Q   á   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   á   Q                                                          –   ó   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ó   –                                                                      *   …   Ò   ù   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ù   Ò   …   *                                                                                      ,   U      è   è      U   ,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               (   0   `           -                                                                                             	   (   L   j   ³   ø   ÷   ³   j   K   (   	                                                                                                                                          V       Ø   ø   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ø   Ø       U                                                                                                                      %   ‹   á   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   á   ‹   &                                                                                                      ‹   ï   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ï   ‹                                                                                          Q   Ü   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   Ü   R                                                                              Š   ş   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ş   Š                                                                     ­   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ­                                                             ¸   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ¸                                                     ®   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ®                                              Š   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   Š                                       P   ı   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ı   O                                  ß   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ß                              ‹   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ‹                       #   ñ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ñ   #                   Œ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ‹                  ä   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ$$$ÿhhhÿeeeÿeeeÿeeeÿeeeÿeeeÿeeeÿeeeÿeeeÿeeeÿeeeÿeeeÿeeeÿeeeÿeeeÿeeeÿeeeÿeeeÿeeeÿeeeÿeeeÿeeeÿPPPÿÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ä              U   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿÿëëëÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿsssÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   U           ¡   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿeeeÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÌÌÌÿÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ¡       	   Ú   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿÿÉÉÉÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿıııÿHHHÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   Ú   	   (   ù   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿEEEÿüüüÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ®®®ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ø   (   K   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿªªªÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿôôôÿ,,,ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   L   j   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ)))ÿòòòÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿŒŒŒÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   j   ´   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿˆˆˆÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿãããÿÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ³   ø   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿÿáááÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿiiiÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ø   ø   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿeeeÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿËËËÿÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ø   ³   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿÿÉÉÉÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿıııÿHHHÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ´   j   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿEEEÿüüüÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ®®®ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   j   L   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿªªªÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿôôôÿ,,,ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   K   (   ø   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ)))ÿòòòÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿŒŒŒÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ù   (   	   Ú   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿˆˆˆÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿãããÿÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   Ú   	       ¡   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿÿáááÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿiiiÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ¡           U   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿeeeÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÌÌÌÿÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   U              ä   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿÿÉÉÉÿÿÿÿÿÿÿÿÿıııÿHHHÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ä                  ‹   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿEEEÿüüüÿÿÿÿÿ®®®ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   Œ                   #   ñ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ¬¬¬ÿûûûÿ,,,ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ñ   #                       ‹   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ222ÿ}}}ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ‹                              ß   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ß                                  O   ı   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ı   P                                       Š   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   Š                                              ®   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ®                                                     ¸   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ¸                                                             ­   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ­                                                                     Š   ş   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ş   Š                                                                              R   Ü   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   Ü   Q                                                                                          ‹   ï   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ï   ‹                                                                                                      &   ‹   á   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   á   ‹   %                                                                                                                      U       Ø   ø   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ÿ   ø   Ø       V                                                                                                                                          	   (   K   j   ³   ÷   ø   ³   j   L   (   	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ‰PNG
-
-   IHDR         \r¨f   sRGB ®Îé   8eXIfMM *    ‡i                                D"8s  IDATxí]	°Õ™n”]<QVA–èÄh$	ÊNŒ13*ˆq°ÂdªÄ©I¡ˆ˜D“L2“ª(Î(Ô˜2ÖÄ™ÑG	‹Áq_@å±ˆà†ŠxÈ›ï»Ğ¾{o÷½½ÓııUß{}»OŸå;çÿûôùÏ9İÂ‘d®(Dg Ğ8	èôN º]€î@ hx¥?v ÀNà3à=`;ğ6ğ.ğ&°àuâà  ±”6‰P©Ğ½€Á@ÿÃ RÓ PùiZqÊ^DNãà€wp¼Ø¼ĞXĞhĞ˜Hg@ÀÌ
-:Ùâ|ğ5` p"@À'¼É²™s{ëpü*ğ2ÀŞ…Ä d Ò¯Œ–È|(0ø
-0 à“>Kò
-³xX¬6 IJÈ ¤C|?$KENØ}Ï“|ŠÂòµáàöh $	2 Ù|/§Â . Nz ’#¼ÃW€eÀ
-à5€ã’ˆÜ¶ˆúà;Ày •¾ ñgàs©h^  IÄÈ DL(¢;¸8 ÒHjg€cH|x 1 ËR"Œa€ïôÓ• GÁÙ@…è9`/`%0èHÄ@jğ½~,° ÛK
-Ÿ,t).ÎèI‘ˆDèT¦Oû)~º°Vìu$b èª›ĞU%¥7“ƒ¨›ù _É$b 8Aç×À€ßøJö3` 510wQñ?¤øvrğÑá:ü2şKÄ@ ¤øv*{%#í‚AZ€å’^(õÏ=ñ³g \ãÀWƒÛ€É!:àß,`à6ıÏ643:@’c.FÙŸ¤ğùä€u?Ğ<'áİ€ƒ€”_Üvp: É8Q¾›
-IñÅ·p{3ÎóĞkHÈ¢ŒG¡¼•®cñÑ¼<62&‹
-×2uCÁÿàÚòæ•­ßâ¤Tø3Ú
-½ê€›…;î¼”ªd/~m€½.ø’XÆ@{äw.°ğ«d]G•Ú {lKÜàEbœÿı(P©RuMüTÛC›ÒÚÃÀdäï])¿Œ_Lmà=Äû=@bœÍ÷K€ÛGUkÙ^œUÓØÆØÖøš)1€È»gÕT¢ÂŠ¯°m`9Ú\Ú®³ÀQşÍ@ØÊÔıâ°–6ğ:ÚÕ^›w¬òï¸E—D¤Á ç	ü5°àºëÄFĞ,ßÜ
-ğX"Òd€mğ<€nB~òì@´¸÷µt×tx‹»ü;ÚfŞ>ñ“ªíI8µˆ»¿8Ó¸C1Ûª$B¸•§e†©İ+ş’jl«ÜEZÃÇ& ©ÊS:â:Š6°möë´ÿ\G1¥ç`¢¨Å!“nl»lÃÆŠÉ^€Q`í·@OcÙSÆÄ@e¸Í·º¹ç¤qbªp•ÿãS†Ä@upšº±FÀD@å¿Ğ“¿º†¦Ğæ2@#À¹ÆõL3 £A’”$H2Ç _h¶FH#rq(íÿOàDƒò¤¬ˆ¨àrunGOWaêbŠ &–SgDñ3ÀEDçto§*Ç¤šú¡Ä9kŠİ~)¿•¡,$Â x¿RŸ1˜vàK áÀ9€DäU(ğw®&LEÒäê©»€S)¹é3ĞY8x8 $.i€(íŒÄK¬Å€YœìğaÈ]­—´À4”ôÇ€	c‰“®Å@3¸fà€ó•4Æ Æ¢„ÿĞ/*bàüş Çş˜$!I€~‡Ø7ÉB*-1`	o Ÿ º	‘$»àÇ¡D‹¾‰”L‰ˆûàòß êJ"’äÀOQ¢Ë)•ö2@#Ğx4‰"$e ¨ø·Iö8’àOiˆ8ø"İ ¼GäŞ8[xÄt<ñ.´´7&‚m&ØR^‹³tq÷ Ø•á.¾§ÅYÅ-2È ½d§ ûã*_Üà&d|j\™W¼b ãôGùö«â*gœ¯ £‘é‡ÄF4ã"IñŠØƒ´/ b1q€NÈğãÀY€Dˆp¼ŒÛ9îãpÑ}w\¯ ó‘Ô¤£“Ó1 j`€èOûŸî­xK=€ÑHñ÷ ÷A“ˆ1Ÿ#¾
-D:U8jÀõıtù©ë$b bA||ØU¼Q¿ü26%ªÌ)1 Šè…_Àê¢³!~DÙàºæ• ¿à+b >A´Ü:]ÑE$ˆ£50òGDhRÑtèĞÁéİ»wRÉ)ğPÇ ‘èn$‘ 3ÜÖë@bS§Nu–,Yâ´jÕÊ²œç:»¡ôÜ;ÀáÀßó@£`Ç|ã–-[)“'OVıÙÕ†©sFxÚ®“âÛ¥øn}Í›7¯ üü³~ıúÆºº:»ŒÀQ—©J_¤ÎUKj8–q0xğàÆ;v4 Ì=[õhW=¾	İë	¤&·!e5Ë8hÑ¢Eãİwß]¤üüñá‡6öïß_õiW}şSZÚ?	¿/`Ÿ;vlã¾}û2 <±hÑ" »À§ĞAî¹‘¸ÜÕX,ã mÛ¶+V¬(©ü<¹wïŞÆ#F¨^íª×;“ÖşaHğc ûà”)SÊ*¿{aùòåpÊØc89(Ñ^€şö4&E¦ÛoÃ†®Wü/· uÆ=±^€ş*?{k^·_EíÇÅúúz¹íªgö† UI-‹è{WU*
-œ:pû9.tÚ·o(/İºus>ûì3ç‰'^Rg€ßäÚGâÌI_D®‘»åÜ~~½ ¹­{øúÙ?N0‘7½SêØ.Æ×¸ÿ~?}/y]nA;êØ£‹³ã2 ]ñFOB2C?·_I­÷œ”[Ğ:°:Ú=#ÀOzKé-ã ˆÛÏ£ï%å´®İ?jĞşIÀ®†PÛ¯¤æ{NÊ-hUİÿt•:™œƒ˜øõ ,â ·ŸG×KÊ-hUÛç¢cƒhP7 ÿÎ¡Â˜Á@µn?¿\Ó-¸k×.¹ıˆ2ã:õú ğ`ÙáF„Û=ı-á V·_ÉG¿ç¤Ü‚Vé İõ}¢0 WIù­ªøFºıÊ­öóèsM‡rZÕ8pJ¸QÜ*@OK8ëöó³
-rZ¥Ôİ–a, ßûwË ØSéW^y¥Ÿ‡¾.· 5íat7ÔØİ¤üÖTv#İ~7n­àA"¸üòËÕ+´£WøèpMÂÅ/ªhK8ˆÒíçgä´F/^„·«ÅŒÀM{e ì¨èR›|ú)qØë7İt“æ?8'àµ€KùíP~ºıî¹ç°ú\õırÚÑ> Ç·Uk ØeP÷ß|ë^xÇéöó³
-‹/V/Àüvòô™¯ôå„ä¢*×pâvûù ¹­Ğ¾ÊŸ]JûË}óˆk8(•ˆÎÅÇÀÄ‰Ñ£GÇ—€OÌmÚ´q,X oúğ”òe.â˜^ ¡QxĞÓßp’tûùõä4^_ƒN—{à†¾øÅyÄ2 †s¤ÛÏÏ Ğ-Ø¹sgµsÛÌĞiêv‘”Z8
-!~PJ?Œc€«ıîºë®À›|Æ] ®Ü½{·³zõê¸“Rüµ1pnãÔàzïí¥º¼tlpû9³fÍrºvíjTæ®¿şzß4*OÊLã‹~•øÑçÔ•3˜ƒ4İ~~¯r­;ÔmêxYŒ+üÀ€€¡¤íöó3 r­;Ômêx“4à÷Å:7]ÕqLš4)U·Ÿ!rú1”êuê6¿ìÕ$ÍÀ7›®èÀ8ºwïîÌ™3Ç¸|5Ï>?î\zé¥ÍOë·œëÍ†× ğø,ïE›ÅÀŒ3œš•©2¹¹å–[œººº2Wu:E¾‚´›¼^p.H1cJºtû]}õÕB˜uéÔSOu®ºŠ»ÉIc€O¥òÄ%ƒ  ÆAZ«ıüüü®kµ ‘ºD?Ç5 Ş@Q×À ÿé3Àwê+®¸"ıŒT™ÎSÀUŞ¥à13Àî?ûâ5 M'İ‹úŸ>pûşZµj•~fjÈ×ˆ×¡Ô‚n©¦±>× ğÿi5D¤[bf íÕ~a‹'·`Xc¹Ÿã -¼1ók¢›½ÿÄI«ıüŞ÷ı®kµ QºÅ¯|ókßMËé(92È@’t°ÉíçÇİ‚X-èL×“a€úN4€“qÜ'$f0@·@V„nA›Ü˜Yá½L9:â|/^sÇ ú—	¨Ó)0`êj¿°T\wİuZ-–ÄèîÂ¨\ 	@Ñ:¦±cítûùœ{È-èÇRb×û1%× ôI,Y%T‘Ûİ~‡‹rú1”ØõÂCŸ€,¼$–´*Ë€é«ıÊf<à¹0zş¥èhÕFü„û¦ ·Ÿ«ı|â€¯8Z-èCRü—¹Tg× ĞHRf€‹glYí–ª¹sçÊ-–Äp÷Ó'+Ãèî¶mµ_Ø’gÍÍ–îçC¿{ ô	òÃ’”ÈªÛÏÎ™3gÊ-èGR|×¹7`G€Şñ¥¡˜ƒ0U·Ÿ_ÙµZĞ¡Ø¯ŸD )À±ó\>¬»ıÊ—üĞ¹ıŠõz N–¤Ä@Öİ~~´Ê-èÇP¬×{rs€¿´@¬<—œ›|.]ºÔ¸|”Îm|gûõëç¬_¿Şyå•WâKD1—bàM½”¢%¡s\“·Ÿ¥rú1Ëõnì\–Æ’„"-É İ`.4æÛ~%3™àI}[0A²$µ“= -Ò>BH"G®Û^r„­<ÂEBGİi Ú%”˜’9Ì@^İ~~@«ıŠüú1Üì€†@’ tû-[¶ÌèÏ{%@CÙ$ğmAgüøñÎš5kÊ†Ñ…ÈøœŠ/åŒOÿˆlßäÓ¿„áBĞ@.X°À±uäp¥Oüî6œ—x²9MPn¿`ß·o_§¾¾^nÁ`t…
-¥§(úª»™ƒ\rûùsÆAÒyóæéÛ‚şT…¡@h
-ƒE0lØ0çÎ;ïtÚµÓ˜kÆ¸N ¡¡ÁYµjUà
-S#ì|^ã½º- |¢İpÃN—.…­ØŞ¥`×^{­zLñ6ƒƒ4 ŸÄ›†bç¨öe—]&"ªd€sÎœ9UŞ¥àU0ğ!ÀÁ*nPĞ*`—ÿæ›oÖ¨v•¼¹Ái8GåşÔÿhh ØmœŠÍËÀäÉ“sÏ=×{JÇU0ÀÕ‚óçÏwZ·æş’ˆø”ƒ€ì›ö8bEzôèá,Y²Dïş![CŸ>}œ7:k×®“noÆÀfö >jvR?#b€ƒXˆ(¶üFÃAT¾FÕÕióêˆ[Á{ì°zvÄç>º¡C‡Êía+[0B2Dµœ=€íG~ë(
-øÄºñÆÕõ‚LO×\sÜ‚>"8|‹`[)
-&Lp8ø'‰–öäŒ”Óí4 oGeÎ#£ÛÀlÙ’_\“DÍ€Ü‚‘2ZØl¢Üi´9ŒtäÈ‘9f Ş¢Ë-¿œ¼‹=€‡YÌyˆn?uQã¯}XÍ¬ÍsAïi >=ŒĞ1æ=RÉí+à +­Ü‚¡¸.2 šŠKì«·ßôéÓCÆ¢Ûƒ20hĞ ‡Ë«%53À5@…MA¹%˜¦×Ì£ãÈí‚¼·j[õä9Î;¸û _(¯ú§¿µ0ÀÕ~rûÕÂ\¸{ômÁPüÜÿ®x#TT9¾™n?¾Êí—N# á•×¥&î}× ¬¯)
-İTVL¯!¸ßÔjÁªë`ïp ß8@RrûUAVŒAå¬šÜ=¸ã-Şå€÷pLHª`@n¿*ÈŠ1¨Ü‚U“Ëõ?}w ]ìH2@·ß´iÓ†V°¸ [Ë¯%àôÿ‚ëß5 8±)Ğ­
-T`€›|rZbZ-¸.Ö!da+@× ğÎçßó€Zígf[0p½¼æ†ô ä¤ I´Égr¸$· o%PÇ_rCyÀVœ|ß½ ÿ¥à"mòYšÎÊ-è[ lÚÄk xAã ø“Û¯9]¢[pÒ¤IåÈ¨¬pP“ÇÏk ŠºFeÙÌÈígHEødƒnAm"Z–$õ5}„›‚zå8üéô2røX›|– ÅàSÜ»w¯³råJƒs™JÖ~T›fşz{ ÌÍ« ÷xĞj?jµàQ•Eİnò ğjsÀùÁ|GxĞ·ı<dXt(·àQ•Eİ.¬p¯47 Üğ)÷¢ş;…Ïysµ_«V­D‡…È-XTiÔí¢ı?› †~¼è–œÿÛÏî ·`Qı=Vô?šòú^à
-€‚¹ºı–.]ª|XŞ
-ômÁB~€¿?ŠÆøJõ ŞD —·äüÜ~Ùh rê‘óÿ©ÛERªÀ…Aİ€óŠBæìİ~wÜq‡Ó¾}ûœ•<›Å•[Ğ¹5ûdóÚ-Õ`˜5 ?Kqİ~l4’ì0@·à)§œ’/I‚®(¼œà‡Ø‹ü…¥nÎê9¹ı²Y³4èœ!˜CÙˆ2×—*w9ÀÀGKİõsî&Ÿrûe³¦súé¶? 6Ù8JÊ |(òuwOä´d°&K)‡nA¾Ê?RšÒn@7,·º8Á=‘õÿrûe½†•nÁM›69k×òM7óÂéı·J•´R€]†e¥nÊê9¹ı²Z³Ååâ /?á“o>ŒÒó•¾¤”rzrÒÀ óó`åöóV{ö»uëæ4448«V­Êra÷ p³ îõQRZ”<{ädK.F9•½#~Tâ¾ûîs.¾øâìN%*Ë ÀğáÃuë8G&“²¥ì/W:*x%á{Ã}@¦ »‚lõõõNc#çAIòÀÀ±Ç›õiŞ÷£Ë*?ëØ¯À0}€g€ãùC"Ä€pÛ¯³€Šßû¨4è–’Ò(bÀ8€_QùY” €áîr7'€—ˆ`·ÿî ùj ¸6à… *Œ©3ÀWögƒä"¨àl¢¡Âˆ1:ì±Sg}%È  	¹¥P?÷„ş‹1`›£¯ÉYĞ ãâ"‹‚Dª0b@¤Æ İö”Ÿ9¬¦Àğı¾[tá‰F1À‡ôp`kĞ\UÓ`œÜRø·A#W81 e`)RÛZMŠÕö ÷€[uæ‰F0ğ	rq.ÀÕ¥Ú #^ğ=C"Ä€9P'«R~f½– ï
-pn€zdC"Òe ¦§?³\K€÷½¨@&$b }jzú3Ûµö x/{èÄ1 Ra€#ÿ|÷çÆŸUK­= &Ä^€æTM¹n‘2À9ÿ5)?s¦Àû{O'ó‡DˆDà’ßo [kMÕoK0¿xÿŒ ÜTd‚_@]b ræ ÆGÃÄ¶À´; «€¯ò‡DˆDàêÜ1ÀgaRÛ`ÚÜ'`0ˆÂ  ‰>\ë/ù„ñ½fĞùƒøñ÷„Å€ˆß!fn÷Z¢|bŸ†ÜğU .t®åà¤ŸÑÀÚrª9Å+€›ı‘­€±î	ıb rnEŒDk”= æé8àÀÙü!b RClã€PŞEÙ`¼ÜŒK†'~ß@‰ Ë}*°!`ø@Á¢6 Lô ;À	$b@DÃÀ?#šÈgŞFı
-àµV”ˆ1vıÇ;ÃEsôİQ¹›ÇÌ=É®ö4¿ ßb@TÅÀn„ş!¹ò3q¼0^ÊV€ã c ‰µ1ğÜ¶´¶[ıïŠëÀM¹=8Iˆİ‰Õ1@Ú…@Cu··`N¸oÀã WJÄ€Æ WúÑåÇe÷±Iœ¯ n¦¹Nàmà¯€¸ÆÜ´ô_d(Ä4`EÜ…IÂ °¯œ"ÌµË1 *3ğ+\şEå Ñ\MâÀÍ)g	rÁ¦
-»Œè¿8š>õ¿pô?vIÒ °0€Ç€~ü!b ˆ­øÅ$'Ó%"I¿“¿RıÀi1 0°‡? S~&Ô Ór…ä’Æ€¤{ nô_˜ÄÀÈÌLà?’ÎT€eäÔÆÀ7ùC"rÎÀOQ~"qIË ° O 8?$b §Ü‹rÿ#@×_â’v¼JÌ™‚£/¹é3ğ'dá/ÈÖ÷W[¤¤›ço'Nüğlóú-2Î Ûüå@jÊO~Óî0”À2` HÄ@ÆØ„òĞ+–ª¤İpOB® ŞuOè¿È(lãS€Ô•Ÿü¦9Èô½ò~ğcß:x/èXd„.ğù°Æ”ò˜d ÈÉVày@F $H2Å •Ÿïü+M*•i€Ül8O@F $H2Á •Ÿå®2­4& r´POÀ´Ö¢üÔÂ€ûä7NùYS ó¶ øÀYƒ1`ğã;ÿJS3n² g['‘@W@"la`32Ên?'ûHB2p
-îhÄm€mu ‰“×j@F@˜ÜV ²­Z!¦¿xIä”ÉÿH®y™Ñ±)üù>ÀåZ!6 ºà”aÎ`äş‚¦ÌdDV$9f€ëù	pM¿6»I¨!LG:\LdrwPyË~ıPá§%Ôæ•L3Æá7çTKÑÄAm€mo|³6©Ÿ	3Ğé-Òh J3¿¼?67 á¶yr¶”"€ûşàgÈÎ4. $±1À÷ı_¼[*Š¸&¸¤˜S/õdq´Îìãä‰ÁCŞâh Š3¿¼>Š6Å¶%±€¶Èã\€#´RZq¦ğ=lK|Å”XÆÀXäWSˆe j5 /¡ıĞÓ$±˜:äıv@½‚ †€Î8Ğ×d„1(‡z2~Fà)´ùö3¢ôÍ‹ÁŞÀl€®C¿† ëùâè#´‰›í=².\Lt? %Ñ N$9b %Ê:àşƒ2ùä€u	 É1|-˜	ldòÁ÷œœt $b À@?ü¥·@† »FàcÔïÏ^€D”d€[9ıà zÙà€ŠÏ:
-HÄ@ ¾ŒP2v )~ ¦®@•àüïŸz5°Ç|€úÒ¿R«ÖµªàÁ|`# W39Ø‚ºá<î"-±0Àï\<ìdÒå€uÀoGLz 1œGp°à—e’å€¯d‹ .øjHÄ@jôFÊ3€•@ c{s<ÿùJ&	É@‹÷ëöb¸ÙÀw‹  ²§ ©nÁµàvğœ²û< ‰ˆ€ˆˆ,M;œû*p>p!0hHüà{=•»ğüxà]IÄÈ DLh™èÚâ<'¡Œh8Ç@V Á#ïã˜Jÿ°àfû IŒÈ ÄHn…¨ûãWŸ}àNÆt[uò$Ÿ¢°›§å ş@’ 2 	’]&)† #€3ˆ“,	=%¯TôÕÀkÀ&à  I‰€”ˆ÷I¶®Ó³ğ Ù[8	è	´L–]È]tïTğgõÀ6à-@b2 U†OVºã: A?€¯} .iî|	àxCœÂ÷rvßw; ÎÀ#ê>éi 8_b82 †WP€ìÑõè  {'n¯áÓ8ğz;€Æ¤yİsŸ œÃ@¥¦¼P¡·o|ÂSùih $3ğÿ@ß¹jìŠá    IEND®B`‚
-### app/api/auth/[...nextauth]/route.ts
-import NextAuth from "next-auth/next";
-import { authOptions } from "@/app/lib/authOptions";
-
-const handler = NextAuth(authOptions);
-
-export { handler as GET, handler as POST };
-
-### app/layout.tsx
-"use client";
-
-import { SessionProvider } from "next-auth/react";
-import "./globals.css"; 
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head />
-      <body>
-        <SessionProvider>
-          {children}
-        </SessionProvider>
-      </body>
-    </html>
-  );
-}
-

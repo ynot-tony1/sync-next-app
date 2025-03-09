@@ -10,9 +10,9 @@
  *
  * - UploadFileProvider: Manages and shares the download state (download URL and filename) across the application.
  *
- * The wrapping ensures that both the UploadForm and ProcessVideoWebSocket components have access to the shared
+ * The wrapping ensures that both the UploadForm and WebSocket components have access to the shared
  * download link state. The UploadForm handles file selection and triggers the upload process, while the
- * ProcessVideoWebSocket component displays processing status and, upon a successful upload, renders a clickable
+ * WebSocket component displays processing status and, upon a successful upload, renders a clickable
  * download link based on the shared state.
  *
  * @returns {JSX.Element} The rendered UploadPage component.
@@ -23,7 +23,7 @@
 "use client";
 import React from "react";
 import UploadForm from "@/components/UploadForm";
-import ProcessVideoWebSocket from "@/components/ProcessVideoWebSocket";
+import WebSocket from "@/components/WebSocket";
 import { WebSocketProvider } from "@/components/WebSocketContext";
 import { UploadFileProvider } from "@/components/UploadFileContext";
 
@@ -33,7 +33,7 @@ export default function UploadPage() {
       <UploadFileProvider>
         <div className="text-center p-4">
           <UploadForm />
-          <ProcessVideoWebSocket />
+          <WebSocket />
         </div>
       </UploadFileProvider>
     </WebSocketProvider>
