@@ -1,5 +1,5 @@
 /**
- * @fileoverview Unit tests for the ProcessVideoWebSocket component. These tests verify that the component properly
+ * @fileoverview Unit tests for the WebSocket component. These tests verify that the component properly
  * updates its message, milestone, and indicator state based on simulated WebSocket messages.
  *
  * @remarks
@@ -11,11 +11,11 @@
 
 import React from 'react';
 import { render, screen, act, waitFor } from '@testing-library/react';
-import ProcessVideoWebSocket from '../components/ProcessVideoWebSocket';
+import WebSocket from '../components/WebSocket';
 import { WebSocketProvider } from '../components/WebSocketContext';
 import { UploadFileProvider } from '../components/UploadFileContext';
 
-describe('ProcessVideoWebSocket', () => {
+describe('WebSocket', () => {
   let mockWsInstance: any;
 
   beforeEach(() => {
@@ -46,7 +46,7 @@ describe('ProcessVideoWebSocket', () => {
     render(
       <WebSocketProvider>
         <UploadFileProvider>
-          <ProcessVideoWebSocket  />
+          <WebSocket  />
         </UploadFileProvider>
       </WebSocketProvider>
     );
@@ -79,7 +79,7 @@ describe('ProcessVideoWebSocket', () => {
     render(
       <WebSocketProvider>
         <UploadFileProvider>
-          <ProcessVideoWebSocket  />
+          <WebSocket  />
         </UploadFileProvider>
       </WebSocketProvider>
     );
@@ -109,7 +109,7 @@ describe('ProcessVideoWebSocket', () => {
     render(
       <WebSocketProvider>
         <UploadFileProvider>
-          <ProcessVideoWebSocket  />
+          <WebSocket  />
         </UploadFileProvider>
       </WebSocketProvider>
     );

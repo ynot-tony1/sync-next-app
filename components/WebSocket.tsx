@@ -1,5 +1,5 @@
 /**
- * ProcessVideoWebSocket Component.
+ * WebSocket Component.
  *
  * @remarks
  * Renders a progress display for video processing that includes a progress bar and a sync indicator.
@@ -7,7 +7,6 @@
  * UploadFile context to obtain the download link when processing is successful.
  *
  * @param {Object} props - The component properties.
- * @param {boolean} props.visible - A flag indicating whether the component should be rendered.
  * @returns {JSX.Element | null} The rendered component if visible; otherwise, null.
  */
 "use client";
@@ -27,7 +26,7 @@ import { IndicatorState } from "@/types/web-socket-props";
  * It also retrieves the download URL and filename from the UploadFile context. Depending on the current indicator state, the component renders
  * a synchronization icon that may be wrapped in an anchor tag if a download link is available.
  */
-const ProcessVideoWebSocket: React.FC = () => {
+const WebSocket: React.FC = () => {
   const { message, progressSteps, indicatorState, progressPercent } = useWebSocket();
   const { downloadUrl, downloadFilename } = useUploadFile();
 
@@ -43,7 +42,7 @@ const ProcessVideoWebSocket: React.FC = () => {
 
       <ProgressBar
         progressPercent={progressSteps.length === 9 ? 100 : progressPercent}
-        steps={progressSteps.map((step, index) => ({ id: (index + 1).toString(), label: step }))}
+        steps={progressSteps.map((step: string, index: number) => ({ id: (index + 1).toString(), label: step }))}
         progressSteps={progressSteps}
       />
 
@@ -74,7 +73,6 @@ const IndicatorIcon: React.FC<{ indicatorState: IndicatorState, downloadUrl: str
       )
     }
 
-    // Fallback
     return <SyncIcon indicatorState="success" data-testid="sync-icon-success" />
 
   }
@@ -88,4 +86,4 @@ const IndicatorIcon: React.FC<{ indicatorState: IndicatorState, downloadUrl: str
 
 
 
-export default ProcessVideoWebSocket;
+export default WebSocket;

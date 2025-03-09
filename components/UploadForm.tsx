@@ -19,7 +19,6 @@ import { useUploadFile } from "./UploadFileContext";
  * @returns {JSX.Element | null} The rendered upload form during the "initial" phase, or null otherwise.
  */
 const UploadForm: React.FC = () => {
-  // Component state management
   const [isProcessing, setIsProcessing] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [hasUploaded, setHasUploaded] = useState(false);

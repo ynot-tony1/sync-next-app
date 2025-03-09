@@ -1,5 +1,5 @@
 /**
- * @fileoverview Unit tests for the ProcessVideoWebSocket component's download link functionality.
+ * @fileoverview Unit tests for the WebSocket component's download link functionality.
  * These tests verify that when the component is in a success state and a valid download link is provided,
  * the success tick is wrapped in an anchor element with the proper attributes.
  *
@@ -10,7 +10,7 @@
 
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import ProcessVideoWebSocket from '../components/ProcessVideoWebSocket';
+import WebSocket from '../components/WebSocket';
 import { UploadFileContext } from '../components/UploadFileContext';
 import { WebSocketProvider } from '../components/WebSocketContext';
 
@@ -28,7 +28,7 @@ jest.mock('@/components/WebSocketContext', () => {
   };
 });
 
-describe('ProcessVideoWebSocket - Download Link', () => {
+describe('WebSocket - Download Link', () => {
   /**
    * @test Verify that a clickable download link is rendered when the component is in a success state.
    */
@@ -42,7 +42,7 @@ describe('ProcessVideoWebSocket - Download Link', () => {
     render(
       <WebSocketProvider>
         <UploadFileContext.Provider value={testContextValue}>
-          <ProcessVideoWebSocket  />
+          <WebSocket  />
         </UploadFileContext.Provider>
       </WebSocketProvider>
     );
