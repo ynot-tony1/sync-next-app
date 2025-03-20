@@ -66,7 +66,12 @@ export const authOptions: AuthOptions = {
 
         const authData = await res.json();
 
-        if (res.ok && authData.access_token) {
+        if (!res.ok) {
+          // Throw an error using FastAPI's "detail" field for a specific error message.
+          throw new Error(authData.detail || "Invalid username or password");
+        }
+
+        if (authData.access_token) {
           try {
             const decoded = jwt.verify(authData.access_token, secret) as JWT;
             return { id: decoded.sub, email: decoded.email };
@@ -82,9 +87,8 @@ export const authOptions: AuthOptions = {
 
   pages: { signIn: "/login" },
 
-  session: { strategy: "jwt",    maxAge: 300 },  jwt: {
-    maxAge: 300,
-  },
+  session: { strategy: "jwt", maxAge: 300 },
+  jwt: { maxAge: 300 },
 
   callbacks: {
     /**

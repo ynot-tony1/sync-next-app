@@ -18,6 +18,25 @@ import { UploadFileContextType } from "types/upload-file";
  */
 export const UploadFileContext = createContext<UploadFileContextType | null>(null);
 
+
+/**
+ * useUploadFile Hook.
+ *
+ * @remarks
+ * Provides a convenient way to access the upload file state from the UploadFileContext.
+ *
+ * @throws Will throw an error if the hook is used outside of an UploadFileProvider.
+ * @returns {UploadFileContextType} The current upload file context value.
+ */
+export const useUploadFile = () => {
+  const context = useContext(UploadFileContext);
+  if (!context) {
+    throw new Error("useUploadFile must be used within a UploadFileProvider");
+  }
+  return context;
+};
+
+
 /**
  * UploadFileProvider Component.
  *
@@ -43,19 +62,3 @@ export const UploadFileProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-/**
- * useUploadFile Hook.
- *
- * @remarks
- * Provides a convenient way to access the upload file state from the UploadFileContext.
- *
- * @throws Will throw an error if the hook is used outside of an UploadFileProvider.
- * @returns {UploadFileContextType} The current upload file context value.
- */
-export const useUploadFile = () => {
-  const context = useContext(UploadFileContext);
-  if (!context) {
-    throw new Error("useUploadFile must be used within a UploadFileProvider");
-  }
-  return context;
-};
