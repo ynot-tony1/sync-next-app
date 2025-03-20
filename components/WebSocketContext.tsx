@@ -1,12 +1,5 @@
 "use client";
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  useRef,
-  ReactNode,
-} from "react";
+import React, {createContext, useContext, useState, useEffect, useRef, ReactNode } from "react";
 import { Step, IndicatorState, WebSocketContextType } from "@/types/web-socket-props";
 
 /**
@@ -40,6 +33,24 @@ interface WebSocketProviderProps {
 }
 
 /**
+ * Hook that provides access to the WebSocket context.
+ *
+ * @throws Will throw an error if used outside of a WebSocketProvider.
+ * @returns {WebSocketContextType} The current WebSocket context value.
+ *
+ * @example
+ * const { message, progressSteps } = useWebSocket();
+ */
+export const useWebSocket = () => {
+  const context = useContext(WebSocketContext);
+  if (!context) {
+    throw new Error("useWebSocket must be used within a WebSocketProvider");
+  }
+  return context;
+};
+
+
+/**
  * WebSocketProvider component that establishes and manages a WebSocket connection,
  * processes incoming messages, and provides state values via React context.
  *
@@ -61,9 +72,6 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
   const messageQueue = useRef<string[]>([]);
 
   useEffect(() => {
-    /**
-     * Establishes a new WebSocket connection and sets up its event handlers.
-     */
     const connectWS = () => {
       const ws = new WebSocket("ws://localhost:8000/ws");
       ws.onopen = () => setWsConnected(true);
@@ -89,9 +97,6 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
 
   useEffect(() => {
     if (!wsConnected) return;
-    /**
-     * Interval for processing queued WebSocket messages.
-     */
     const intervalId = window.setInterval(() => {
       if (messageQueue.current.length) {
         const nextMsg = messageQueue.current.shift() || "";
@@ -128,19 +133,3 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
   return <WebSocketContext.Provider value={value}>{children}</WebSocketContext.Provider>;
 };
 
-/**
- * Hook that provides access to the WebSocket context.
- *
- * @throws Will throw an error if used outside of a WebSocketProvider.
- * @returns {WebSocketContextType} The current WebSocket context value.
- *
- * @example
- * const { message, progressSteps } = useWebSocket();
- */
-export const useWebSocket = () => {
-  const context = useContext(WebSocketContext);
-  if (!context) {
-    throw new Error("useWebSocket must be used within a WebSocketProvider");
-  }
-  return context;
-};
