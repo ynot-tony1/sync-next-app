@@ -50,49 +50,60 @@ Directory Structure
 Below is an overview of the project structure (excluding node_modules):
 
 .
+.
 ├── app
-│   ├── api
-│   │   └── auth
-│   ├── favicon.ico
-│   ├── globals.css
-│   ├── layout.tsx
-│   ├── lib
-│   │   └── authOptions.ts
-│   ├── login
-│   │   └── page.tsx
-│   ├── page.tsx
-│   └── upload
-│       └── page.tsx
+│   ├── api
+│   │   └── auth
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.tsx
+│   ├── lib
+│   │   └── authOptions.ts
+│   ├── login
+│   │   └── page.tsx
+│   ├── page.tsx
+│   └── upload
+│       └── page.tsx
 ├── components
-│   ├── HomePage.tsx
-│   ├── LoginPage.tsx
-│   ├── ProcessVideoWebSocket.tsx
-│   ├── ProgressBar.tsx
-│   ├── SyncIcon.tsx
-│   ├── UploadFileContext.tsx
-│   ├── UploadForm.tsx
-│   └── WebSocketContext.tsx
-├── types
-│   ├── next-auth.d.ts
-│   ├── progress-bar.d.ts
-│   ├── sync-icon-props.d.ts
-│   ├── upload-file.d.ts
-│   └── web-socket-props.d.ts
-├── public
-│   ├── file.svg
-│   ├── globe.svg
-│   ├── next.svg
-│   ├── vercel.svg
-│   └── window.svg
-├── __tests__
-│   ├── HomePage.test.tsx
-│   ├── LoginPage.test.tsx
-│   ├── ProcessVideoWebSocketDownload.test.tsx
-│   ├── ProcessVideoWebSocket.test.tsx
-│   └── UploadForm.test.tsx
+│   ├── HomePage.tsx
+│   ├── LoginPage.tsx
+│   ├── ProgressBar.tsx
+│   ├── SyncIcon.tsx
+│   ├── UploadFileContext.tsx
+│   ├── UploadForm.tsx
+│   ├── WebSocketContext.tsx
+│   └── WebSocket.tsx
+├── eslint.config.mjs
+├── jest.config.js
+├── jest.setup.js
+├── next.config.ts
+├── next-env.d.ts
+├── outputxZ.txt
 ├── package.json
+├── package-lock.json
+├── postcss.config.js
+├── public
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── next.svg
+│   ├── vercel.svg
+│   └── window.svg
+├── README.md
+├── tailwind.config.ts
+├── __tests__
+│   ├── HomePage.test.tsx
+│   ├── LoginPage.test.tsx
+│   ├── ProcessVideoWebSocketDownload.test.tsx
+│   ├── ProcessVideoWebSocket.test.tsx
+│   └── UploadForm.test.tsx
+├── tsconfig.jest.json
 ├── tsconfig.json
-└── README.md
+└── types
+    ├── next-auth.d.ts
+    ├── progress-bar.d.ts
+    ├── sync-icon-props.d.ts
+    ├── upload-file.d.ts
+    └── web-socket-props.d.ts
 
 Technologies Used
 
