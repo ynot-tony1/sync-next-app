@@ -16,16 +16,7 @@ import Link from "next/link";
  * @returns The rendered HomePage component.
  */
 const HomePage: React.FC = () => {
-  const { data: session, status } = useSession();
-
-  // While the session is loading, render a loading state
-  if (status === "loading") {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-darkblue">
-        <p className="text-lg text-creme">Loading...</p>
-      </div>
-    );
-  }
+  const { data: session } = useSession();
 
   if (!session) {
     return (
