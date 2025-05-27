@@ -1,6 +1,6 @@
-SyncNet Upload
+next-sync-app
 
-SyncNet Upload is a Next.js application for uploading and processing video files. It features real‑time progress updates through a WebSocket connection and uses NextAuth for authentication. The project leverages React Context to manage shared state across components, including upload file data and WebSocket communication.
+next-sync-app is a Next.js application for uploading and processing video files. It features real‑time progress updates through a WebSocket connection and uses NextAuth for authentication. The project leverages React Context to manage shared state across components, including upload file data and WebSocket communication.
 Features
 
     File Upload:
@@ -127,7 +127,7 @@ How It Works
 
 Deployment
 
-The easiest way to deploy your Next.js app is to use the Vercel Platform. For more detailed instructions, refer to the Next.js deployment documentation.
+For more detailed instructions, refer to the Next.js deployment documentation.
 Learn More
 
     Next.js Documentation – Learn about Next.js features and API.

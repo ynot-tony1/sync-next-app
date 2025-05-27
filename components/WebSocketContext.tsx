@@ -73,7 +73,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }
 
   useEffect(() => {
     const connectWS = () => {
-      const ws = new WebSocket("ws://localhost:8000/ws");
+      const ws = new WebSocket(process.env.NEXT_PUBLIC_WS_URL!);
       ws.onopen = () => setWsConnected(true);
       ws.onmessage = (e: MessageEvent<string>) => {
         messageQueue.current.push(e.data);

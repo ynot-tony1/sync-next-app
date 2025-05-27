@@ -20,6 +20,8 @@
  * @example
  * <UploadPage />
  */
+// app/upload/page.tsx
+// app/upload/page.tsx
 "use client";
 import React from "react";
 import UploadForm from "@/components/UploadForm";

@@ -1,16 +1,26 @@
-"use client";
+import "./globals.css";
+import React from "react";
+import { Providers } from "./providers";
 
-import { SessionProvider } from "next-auth/react";
-import "./globals.css"; 
+export const metadata = {
+  title: "Syncnet • Home",
+  description:
+    "Syncnet • Upload and automatically sync your video files with perfect accuracy.",
+};
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <head />
+      <head />             
       <body>
-        <SessionProvider>
+        <Providers>       
           {children}
-        </SessionProvider>
+        </Providers>
       </body>
     </html>
   );

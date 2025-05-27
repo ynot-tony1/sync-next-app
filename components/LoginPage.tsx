@@ -21,15 +21,6 @@ const LoginPage: React.FC = () => {
   const [userPassword, setUserPassword] = useState("");
   const [error, setError] = useState("");
 
-  /**
-   * Handles user login by invoking NextAuth's signIn function.
-   *
-   * @remarks
-   * This function prevents the default form submission behavior and calls NextAuth's `signIn` function
-   * with the provided email and password to authenticate the user.
-   *
-   * @param e The form submission event.
-   */
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -62,55 +53,52 @@ const LoginPage: React.FC = () => {
     }
   };
 
-  /**
-   * Handles user registration by sending the registration request and logging in upon success.
-   *
-   * @param e The form submission event.
-   */
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(""); 
+    setError("");
+
     const authRes = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: userEmail, password: userPassword }),
     });
-    
+
     if (!authRes.ok) {
-      alert("Registration failed at Auth Service");
+      const data = await authRes.json().catch(() => ({}));
+      setError(data.detail ?? "Registration failed at Auth Service.");
       return;
     }
-  
-    const authData = await authRes.json();
-    const token = authData.access_token;
-    
-    const userRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/user`, {  
+
+    const { access_token: token } = await authRes.json();
+
+    const userRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/user`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
-    
+
     if (!userRes.ok) {
-      alert("User creation failed");
+      const data = await userRes.json().catch(() => ({}));
+      setError(data.detail ?? "User creation failed.");
       return;
     }
-    
+
     const res: SignInResponse | undefined = await signIn("credentials", {
       redirect: false,
       callbackUrl: "/",
       email: userEmail,
       password: userPassword,
     });
-    
+
     if (!res) {
       setError("Login failed after registration. Please try again.");
       return;
     }
-    
+
     if (res.error) {
-      setError("Login failed after registration.");
+      setError(res.error);
     } else if (res.url) {
       window.location.href = res.url;
     } else {
@@ -120,29 +108,47 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-darkblue">
-      <h1 className="text-2xl font-bold mb-6 text-creme">
+      <h1 id="auth-heading" className="text-2xl font-bold mb-6 text-creme">
         {isRegister ? "Register" : "Login"}
       </h1>
+
       <form
         onSubmit={isRegister ? handleRegister : handleLogin}
+        aria-labelledby="auth-heading"
         className="flex flex-col w-full max-w-sm space-y-4"
       >
+        <label htmlFor="email" className="sr-only">
+          Email address
+        </label>
         <input
+          id="email"
+          name="email"
           type="email"
           placeholder="Email"
+          autoComplete="current-email"
           value={userEmail}
           onChange={(e) => setUserEmail(e.target.value)}
           required
+          aria-required="true"
           className="border rounded p-2 focus:outline-none focus:ring-2 focus:ring-burntorange"
         />
+
+        <label htmlFor="password" className="sr-only">
+          Password
+        </label>
         <input
+          id="password"
+          name="password"
           type="password"
           placeholder="Password"
+          autoComplete="current-password"
           value={userPassword}
           onChange={(e) => setUserPassword(e.target.value)}
           required
+          aria-required="true"
           className="border rounded p-2 focus:outline-none focus:ring-2 focus:ring-burntorange"
         />
+
         <button
           type="submit"
           className="px-4 py-2 rounded transition-colors bg-burntorange text-white"
@@ -150,17 +156,25 @@ const LoginPage: React.FC = () => {
           {isRegister ? "Register" : "Login"}
         </button>
       </form>
+
       {error && (
-        <div className="mt-4 text-red-500 font-semibold">
+        <div
+          role="alert"
+          aria-live="assertive"
+          className="mt-4 text-red-500 font-semibold"
+        >
           {error}
         </div>
       )}
+
       <button
+        type="button"
         onClick={() => {
           setError("");
           setIsRegister(!isRegister);
         }}
-        className="mt-4 hover:underline text-creme"
+        aria-label={`Switch to ${isRegister ? "Login" : "Register"} mode`}
+        className="mt-4 hover:underline text-white"
       >
         Switch to {isRegister ? "Login" : "Register"}
       </button>
